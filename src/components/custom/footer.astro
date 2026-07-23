@@ -1,5 +1,6 @@
 ---
 import { Button } from "@/components/ui/button"
+import { Heart } from "lucide-react"
 
 // copyright date & year
 const date = new Date()
@@ -20,10 +21,21 @@ const quickLinks: { text: string; href: string }[] = [
 
 <footer class="flex w-full items-center justify-between p-2">
   {/* copyright */}
-  <p class="items-center justify-center text-xs">
-    &copy; {year}
-    <span class="text-accent"> ClassifiQA</span>
-  </p>
+  <div class="flex flex-row items-center gap-2 text-xs">
+    {/* copyright year */}
+    <p class="items-center justify-center">
+      &copy; {year}
+      <span class="text-accent"> ClassifiQA</span>
+    </p>
+
+    {" | "}
+
+    {/* author */}
+    <p class="flex flex-row items-center gap-0.5">
+      Feito com <Heart className="text-accent" fill="var(--accent)" size={14} /> por
+      DanFQ
+    </p>
+  </div>
 
   {/* quick links */}
   <div class="flex flex-row items-center gap-1">
@@ -34,8 +46,7 @@ const quickLinks: { text: string; href: string }[] = [
           key={link.href}
           href={link.href}
           variant="link"
-          className="text-xs"
-        >
+          className="text-xs">
           {link.text}
         </Button>
       ))
