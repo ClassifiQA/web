@@ -3,6 +3,7 @@
   "semi": false,
   "singleQuote": false,
   "tabWidth": 2,
+  "bracketSameLine": true,
   "trailingComma": "es5",
   "printWidth": 80,
   "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
