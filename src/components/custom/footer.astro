@@ -1,0 +1,44 @@
+---
+import { Button } from "@/components/ui/button"
+
+// copyright date & year
+const date = new Date()
+const year = date.getFullYear()
+
+// quick links
+const quickLinks: { text: string; href: string }[] = [
+  {
+    text: "Termos & Condições",
+    href: "/termos",
+  },
+  {
+    text: "Política de Privacidade",
+    href: "/privacidade",
+  },
+]
+---
+
+<footer class="flex w-full items-center justify-between p-2">
+  {/* copyright */}
+  <p class="items-center justify-center text-xs">
+    &copy; {year}
+    <span class="text-accent"> ClassifiQA</span>
+  </p>
+
+  {/* quick links */}
+  <div class="flex flex-row items-center gap-1">
+    {
+      quickLinks.map((link) => (
+        <Button
+          client:load
+          key={link.href}
+          href={link.href}
+          variant="link"
+          className="text-xs"
+        >
+          {link.text}
+        </Button>
+      ))
+    }
+  </div>
+</footer>

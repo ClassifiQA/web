@@ -1,7 +1,29 @@
 ---
 import MainLayout from "@/layouts/main.astro"
+import { Button } from "@/components/ui/button"
+import { Image } from "astro:assets"
+import ze_landing from "@/assets/img/ze_landing.svg"
 ---
 
 <MainLayout>
-  <div class="flex min-h-svh p-6"></div>
+  <div class="flex flex-1 justify-center p-10">
+    {/* one-liner & hook */}
+    <div class="flex flex-col items-center gap-2">
+      <Image class="pb-10" src={ze_landing} height={200} alt="Zé Povinho" />
+      <h1 class="text-2xl">
+        É a vez do <span class="text-accent">Zé</span> dar as notas
+      </h1>
+      <p>
+        Durante séculos o Zé Povinho levou. Agora tem caneta <span
+          class="text-red-600">vermelha</span
+        > na mão.
+      </p>
+
+      {/* cta */}
+      <div class="mt-6 flex flex-row items-center gap-2">
+        <Button>Dar a Minha Nota</Button>
+        <Button variant="outline">Ver Média Nacional</Button>
+      </div>
+    </div>
+  </div>
 </MainLayout>
