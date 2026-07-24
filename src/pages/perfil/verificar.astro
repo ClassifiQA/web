@@ -1,0 +1,10 @@
+---
+import { VerifyEmailPage } from "@/components/custom/verify-email-page"
+import MainLayout from "@/layouts/main.astro"
+---
+
+<MainLayout
+  title="Confirmar e-mail | ClassifiQA"
+  description="Confirma o endereço de e-mail associado à tua conta.">
+  <VerifyEmailPage client:load />
+</MainLayout>
