@@ -5,18 +5,27 @@ import Footer from "@/components/custom/footer.astro"
 import { cn } from "@/lib/utils"
 import { THEME_HEAD_INLINE_SCRIPT } from "@/lib/hooks/theme"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { Toaster } from "@/components/ui/sonner"
 
 export interface Props {
   title?: string
+  description?: string
+  socialImage?: string
   className?: string
   class?: string
 }
 
-const { title, className, class: bodyClassFromAttr } = Astro.props
+const {
+  title,
+  description,
+  socialImage,
+  className,
+  class: bodyClassFromAttr,
+} = Astro.props
 const isDev = import.meta.env.DEV
 ---
 
-<html class="scroll-smooth">
+<html lang="pt-PT" class="scroll-smooth">
   <head>
     <script is:inline set:html={THEME_HEAD_INLINE_SCRIPT} />
     <meta charset="utf-8" />
@@ -42,6 +51,26 @@ const isDev = import.meta.env.DEV
     </style>
     {isDev ? <script>import "@vitejs/plugin-react/preamble";</script> : null}
     <meta name="generator" content={Astro.generator} />
+    {description ? <meta name="description" content={description} /> : null}
+    {title ? <meta property="og:title" content={title} /> : null}
+    {
+      description ? (
+        <meta property="og:description" content={description} />
+      ) : null
+    }
+    {socialImage ? <meta property="og:image" content={socialImage} /> : null}
+    {
+      socialImage ? (
+        <meta name="twitter:card" content="summary_large_image" />
+      ) : null
+    }
+    {title ? <meta name="twitter:title" content={title} /> : null}
+    {
+      description ? (
+        <meta name="twitter:description" content={description} />
+      ) : null
+    }
+    {socialImage ? <meta name="twitter:image" content={socialImage} /> : null}
     <title>{title}</title>
   </head>
   <body
@@ -49,8 +78,7 @@ const isDev = import.meta.env.DEV
       "flex min-h-dvh flex-col overflow-hidden",
       className,
       bodyClassFromAttr
-    )}
-  >
+    )}>
     <TooltipProvider>
       <script>
         import { initThemeDocument } from "@/lib/hooks/theme"
@@ -61,6 +89,7 @@ const isDev = import.meta.env.DEV
         <slot />
       </main>
       <Footer />
+      <Toaster client:load />
     </TooltipProvider>
   </body>
 </html>
