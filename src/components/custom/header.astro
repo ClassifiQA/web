@@ -1,7 +1,6 @@
 ---
-import { Button } from "@/components/ui/button"
+import { AuthControl } from "@/components/custom/auth-control"
 import { ThemeToggle } from "@/components/custom/theme"
-import { User } from "lucide-react"
 ---
 
 <header class="flex flex-row items-center justify-between p-6">
@@ -13,10 +12,7 @@ import { User } from "lucide-react"
   {/* nav */}
   <div class="flex flex-row items-center gap-2">
     {/* menu */}
-    <Button variant="outline" client:load>
-      <User />
-      A Minha Conta
-    </Button>
+    <AuthControl client:load />
 
     {/* theme toggle */}
     <ThemeToggle client:load />
