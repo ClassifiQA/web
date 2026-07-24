@@ -1,0 +1,10 @@
+---
+import { ProfilePage } from "@/components/custom/profile-page"
+import MainLayout from "@/layouts/main.astro"
+---
+
+<MainLayout
+  title="Perfil | ClassifiQA"
+  description="Gere os teus dados pessoais e preferências de conta.">
+  <ProfilePage client:load />
+</MainLayout>

@@ -8,6 +8,7 @@ import {
   getThemePreference,
   initThemeDocument,
   type ThemePreference,
+  useThemePreference,
 } from "@/lib/hooks/theme"
 
 function ariaLabelForNext(preference: ThemePreference): string {
@@ -21,30 +22,8 @@ function ariaLabelForNext(preference: ThemePreference): string {
   return "Use light theme"
 }
 
-function subscribeToThemePreference(onStoreChange: () => void) {
-  const onStorage = (event: StorageEvent) => {
-    if (event.key === "theme") {
-      onStoreChange()
-    }
-  }
-
-  window.addEventListener("storage", onStorage)
-  document.addEventListener("astro:after-swap", onStoreChange)
-  window.addEventListener("sideout:theme-preference", onStoreChange)
-
-  return () => {
-    window.removeEventListener("storage", onStorage)
-    document.removeEventListener("astro:after-swap", onStoreChange)
-    window.removeEventListener("sideout:theme-preference", onStoreChange)
-  }
-}
-
 export function ThemeToggle() {
-  const preference = React.useSyncExternalStore(
-    subscribeToThemePreference,
-    getThemePreference,
-    (): ThemePreference => "system"
-  )
+  const preference = useThemePreference()
   const ariaLabel = ariaLabelForNext(preference)
 
   React.useEffect(() => {
@@ -63,8 +42,7 @@ export function ThemeToggle() {
       variant="ghost"
       type="button"
       onClick={cycle}
-      aria-label={ariaLabel}
-    >
+      aria-label={ariaLabel}>
       <Moon
         className="theme-toggle-icon theme-toggle-icon--next-dark size-5"
         aria-hidden
