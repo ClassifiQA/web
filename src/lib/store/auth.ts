@@ -1,20 +1,40 @@
 import type { Models } from "appwrite"
 import { create } from "zustand"
 
-type User = Models.User<Models.Preferences>
+export type NotificationPreferences = {
+  replies: boolean
+  weekly: boolean
+  product: boolean
+  security: boolean
+  browser: boolean
+}
+
+export type UserPreferences = {
+  [key: string]: unknown
+  profile?: {
+    role?: string
+    school?: string
+  }
+  notifications?: Partial<NotificationPreferences>
+}
+
+export type AuthUser = Models.User<UserPreferences>
 
 type AuthStore = {
-  currentUser: User | null
+  authError: string | null
+  currentUser: AuthUser | null
   isLoading: boolean
-  setCurrentUser: (user: User | null) => void
+  setAuthError: (authError: string | null) => void
+  setCurrentUser: (user: AuthUser | null) => void
   setIsLoading: (isLoading: boolean) => void
   reset: () => void
 }
 
 const initialState = {
+  authError: null,
   currentUser: null,
   isLoading: true,
-} satisfies Pick<AuthStore, "currentUser" | "isLoading">
+} satisfies Pick<AuthStore, "authError" | "currentUser" | "isLoading">
 
 /**
  * auth store
@@ -23,6 +43,7 @@ const initialState = {
  */
 export const useAuthStore = create<AuthStore>((set) => ({
   ...initialState,
+  setAuthError: (authError) => set({ authError }),
   setCurrentUser: (currentUser) => set({ currentUser }),
   setIsLoading: (isLoading) => set({ isLoading }),
   reset: () => set(initialState),
