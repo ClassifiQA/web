@@ -50,6 +50,32 @@ function readStoredPreference(): ThemePreference {
 
 export const getThemePreference = (): ThemePreference => readStoredPreference()
 
+export const subscribeToThemePreference = (onChange: () => void) => {
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY) {
+      onChange()
+    }
+  }
+
+  window.addEventListener("storage", onStorage)
+  document.addEventListener("astro:after-swap", onChange)
+  window.addEventListener("sideout:theme-preference", onChange)
+
+  return () => {
+    window.removeEventListener("storage", onStorage)
+    document.removeEventListener("astro:after-swap", onChange)
+    window.removeEventListener("sideout:theme-preference", onChange)
+  }
+}
+
+export const useThemePreference = () => {
+  return React.useSyncExternalStore(
+    subscribeToThemePreference,
+    getThemePreference,
+    (): ThemePreference => "system"
+  )
+}
+
 export const setThemePreference = (theme: ThemePreference): void => {
   if (typeof window === "undefined") {
     return
