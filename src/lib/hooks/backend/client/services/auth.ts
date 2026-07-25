@@ -1004,8 +1004,8 @@ export const useClientAuth = () => {
     }
   }
 
-  // return methods
-  return {
+  // stable service surface for consumers and editor inference
+  const clientAuth = {
     getCurrentUser,
     signUp,
     signIn,
@@ -1033,4 +1033,6 @@ export const useClientAuth = () => {
     confirmEmailVerification,
     deactivateAccount,
   }
+
+  return clientAuth
 }
