@@ -1,0 +1,38 @@
+---
+import { MemberDetail } from "@/components/custom/members/member-detail"
+import MainLayout from "@/layouts/main.astro"
+import { createServerMembers } from "@/lib/hooks/backend/server/services/members"
+
+const memberId = Astro.params.id
+let member
+let error: string | undefined
+
+try {
+  member = memberId ? await createServerMembers().getMember(memberId) : null
+
+  if (!member) {
+    Astro.response.status = 404
+    error = "Esta pessoa não está disponível para classificação."
+  }
+} catch {
+  Astro.response.status = 503
+  error = "Não foi possível consultar esta pessoa neste momento."
+}
+
+Astro.response.headers.set(
+  "Cache-Control",
+  member
+    ? "public, max-age=0, s-maxage=300, stale-while-revalidate=86400"
+    : "no-store"
+)
+---
+
+<MainLayout
+  title={member ? `${member.name} | ClassifiQA` : "Classificação | ClassifiQA"}
+  description={member
+    ? `Consulta os dados e a classificação de ${member.name}.`
+    : "Consulta os dados e a classificação desta pessoa."}>
+  <div class="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-10">
+    <MemberDetail member={member ?? undefined} error={error} client:idle />
+  </div>
+</MainLayout>
