@@ -25,7 +25,6 @@ export const errorPage = (errorMsg: string, status = 404) => {
    <title>${status}</title>
  </head>
  <h1>${status}</h1><p>${errorMsg}</p>
- <a href='/'>Home</a>
  `
   const headers = { "Content-type": "text/html" }
   return new Response(body, { status, headers })

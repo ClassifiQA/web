@@ -1,5 +1,6 @@
 export type HrefHeaderRecord = Record<string, unknown>
 
+// Keep programmatic navigation headers deliberately narrow.
 const ALLOWED_HREF_HEADER_NAMES = new Set(["authorization", "accept-language"])
 const ALLOWED_HREF_HEADER_PREFIXES = ["x-classifiqa-"]
 const HREF_HEADERS_HISTORY_STATE = "__classifiqaHrefHeadersNavigation"

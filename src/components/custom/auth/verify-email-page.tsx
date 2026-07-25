@@ -1,8 +1,7 @@
-import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react"
-import { useEffect, useState } from "react"
-
 import { Button } from "@/components/ui/button"
 import { useClientAuth } from "@/lib/hooks/backend/client/services/auth"
+import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react"
+import { useEffect, useState } from "react"
 
 type VerificationState =
   { type: "loading" } | { type: "success" } | { type: "error"; message: string }

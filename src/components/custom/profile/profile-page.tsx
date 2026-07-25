@@ -27,7 +27,7 @@ import {
 } from "react"
 import { AuthenticationFactor, type Models } from "appwrite"
 
-import { AuthDialog } from "@/components/custom/dialogs/auth"
+import { AuthDialog } from "@/components/custom/auth/auth-dialog"
 import {
   Dialog,
   DialogContent,
@@ -1955,7 +1955,7 @@ const MfaSetupDialog = ({
                     disabled={isSubmitting}
                     onClick={() => onOpenChange(false)}>
                     {activation.recoveryCodes.length
-                      ? "Já guardei — tentar mais tarde"
+                      ? "Já guardei - tentar mais tarde"
                       : "Fechar e tentar mais tarde"}
                   </ProfileButton>
                   <ProfileButton
