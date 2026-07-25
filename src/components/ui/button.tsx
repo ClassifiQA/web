@@ -5,7 +5,7 @@ import {
   followButtonHref,
   hasHrefHeaders,
   type HrefHeaderRecord,
-} from "@/components/custom/button-href"
+} from "@/lib/navigation/button-href"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
@@ -47,7 +47,7 @@ const buttonVariants = cva(
 )
 
 type IconProp = React.ReactNode | React.ElementType
-export type { HrefHeaderRecord } from "@/components/custom/button-href"
+export type { HrefHeaderRecord } from "@/lib/navigation/button-href"
 
 function renderIconProp(icon: IconProp | undefined): React.ReactNode | null {
   if (icon == null || icon === false) return null
@@ -142,8 +142,7 @@ function Button({
       type={type ?? (href ? "button" : undefined)}
       onClick={href ? handleClick : onClick}
       onAuxClick={href ? handleAuxClick : onAuxClick}
-      {...props}
-    >
+      {...props}>
       {useAsChild ? (
         children
       ) : (
@@ -152,8 +151,7 @@ function Button({
             <span
               aria-hidden
               className="inline-flex shrink-0"
-              data-icon="inline-start"
-            >
+              data-icon="inline-start">
               {leadingRendered}
             </span>
           ) : null}
@@ -162,8 +160,7 @@ function Button({
             <span
               aria-hidden
               className="inline-flex shrink-0"
-              data-icon="inline-end"
-            >
+              data-icon="inline-end">
               {trailingRendered}
             </span>
           ) : null}

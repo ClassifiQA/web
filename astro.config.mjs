@@ -3,6 +3,7 @@
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import react from "@astrojs/react"
+import node from "@astrojs/node"
 
 const appwriteDevOrigin = "https://classifiqa.localhost"
 const appwriteUpstreamOrigin = "https://backend.classifiqa.pt"
@@ -33,6 +34,10 @@ const appwriteDevProxy = {
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
   vite: {
     plugins: [tailwindcss(), appwriteDevProxy],
   },

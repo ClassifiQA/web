@@ -10,6 +10,7 @@
     "clean": "rm -rf node_modules .astro dist && bun install",
     "dev": "portless classifiqa astro dev",
     "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
     "preview": "bun run build && astro preview",
     "astro": "astro",
     "lint": "eslint .",
@@ -17,6 +18,7 @@
     "typecheck": "astro check"
   },
   "dependencies": {
+    "@astrojs/node": "^11.0.2",
     "@astrojs/react": "^5.0.7",
     "@fontsource-variable/figtree": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",

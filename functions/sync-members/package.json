@@ -1,0 +1,13 @@
+{
+  "name": "classifiqa-sync-members",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node src/check.js"
+  },
+  "dependencies": {
+    "node-appwrite": "26.0.0",
+    "node-fetch": "3.3.2"
+  }
+}

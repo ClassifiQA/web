@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { LogOut, User } from "lucide-react"
-import { AuthDialog } from "@/components/custom/dialogs/auth"
+import { AuthDialog } from "./auth-dialog"
 import { Button } from "@/components/ui/button"
 import { useClientAuth } from "@/lib/hooks/backend/client/services/auth"
 import { useAuthStore } from "@/lib/store/auth"

@@ -1,0 +1,6 @@
+{
+  "projectId": "classifiqa",
+  "includes": {
+    "functions": "appwrite/functions.json"
+  }
+}
