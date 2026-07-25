@@ -1,0 +1,20 @@
+[
+  {
+    "$id": "sync-members",
+    "name": "sync-members",
+    "enabled": true,
+    "logging": true,
+    "runtime": "node-16.0",
+    "buildSpecification": "s-8vcpu-8gb",
+    "runtimeSpecification": "s-8vcpu-8gb",
+    "deploymentRetention": 7,
+    "scopes": ["rows.read", "rows.write"],
+    "events": [],
+    "schedule": "0 3 * * *",
+    "timeout": 300,
+    "entrypoint": "src/main.js",
+    "commands": "npm install",
+    "ignore": "node_modules\n.env\ncoverage",
+    "path": "../functions/sync-members"
+  }
+]
