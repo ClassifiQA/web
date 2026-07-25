@@ -4,7 +4,7 @@
     "name": "sync-members",
     "enabled": true,
     "logging": true,
-    "runtime": "node-16.0",
+    "runtime": "bun-1.3",
     "buildSpecification": "s-8vcpu-8gb",
     "runtimeSpecification": "s-8vcpu-8gb",
     "deploymentRetention": 7,
@@ -13,7 +13,7 @@
     "schedule": "0 3 * * *",
     "timeout": 300,
     "entrypoint": "src/main.js",
-    "commands": "npm install",
+    "commands": "bun install --frozen-lockfile",
     "ignore": "node_modules\n.env\ncoverage",
     "path": "../functions/sync-members"
   }

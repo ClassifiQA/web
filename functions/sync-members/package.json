@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.3.8",
   "scripts": {
-    "check": "node src/check.js"
+    "check": "bun src/check.js"
   },
   "dependencies": {
     "node-appwrite": "26.0.0",
