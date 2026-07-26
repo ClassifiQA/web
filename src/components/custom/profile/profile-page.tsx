@@ -68,8 +68,6 @@ type MfaProtectedAction = "reuse" | "recovery" | "reconfigure"
 
 const defaultNotifications: NotificationPreferences = {
   replies: true,
-  weekly: true,
-  product: false,
   security: true,
   browser: false,
 }
@@ -1155,7 +1153,8 @@ const PersonalPanel = ({
             <div>
               <p className="text-sm font-semibold">Identificação da conta</p>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                As iniciais são geradas automaticamente a partir do teu nome.
+                As iniciais são geradas automaticamente a partir do teu nome de
+                utilizador.
               </p>
             </div>
           </div>
@@ -1163,7 +1162,7 @@ const PersonalPanel = ({
           {/* fields */}
           <div className="grid gap-x-5 gap-y-3 md:grid-cols-2">
             <ProfileField
-              label="Nome completo"
+              label="Nome de utilizador"
               name="name"
               form={form}
               editing={editing}
@@ -1611,7 +1610,7 @@ const NotificationsPanel = ({
       <div className="border-b border-border px-5 py-4 sm:px-6">
         <h2 className="text-xl font-semibold">Notificações</h2>
         <p className="mt-0.5 text-sm text-muted-foreground">
-          Escolhe quando e como queres receber novidades.
+          Escolhe quando e como queres receber alertas.
         </p>
       </div>
 
@@ -1636,20 +1635,6 @@ const NotificationsPanel = ({
             checked={preferences.replies}
             disabled={isSaving}
             onChange={(checked) => onChange("replies", checked)}
-          />
-          <PreferenceToggle
-            label="Resumo semanal"
-            description="Um resumo dos resultados e tendências da semana."
-            checked={preferences.weekly}
-            disabled={isSaving}
-            onChange={(checked) => onChange("weekly", checked)}
-          />
-          <PreferenceToggle
-            label="Novidades do ClassifiQA"
-            description="Atualizações de produto, novas funcionalidades e dicas."
-            checked={preferences.product}
-            disabled={isSaving}
-            onChange={(checked) => onChange("product", checked)}
           />
         </div>
 

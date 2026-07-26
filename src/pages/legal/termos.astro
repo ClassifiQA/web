@@ -1,0 +1,523 @@
+---
+import LegalPage from "@/components/custom/legal/legal-page.astro"
+import { legalDetails } from "@/config/legal"
+import MainLayout from "@/layouts/main.astro"
+---
+
+<MainLayout
+  title="Termos e Condições | ClassifiQA"
+  className="h-dvh"
+  description="Termos que regulam o acesso e a utilização do ClassifiQA.">
+  <LegalPage
+    title="Termos e Condições"
+    description="Estes Termos regulam a utilização do ClassifiQA, uma plataforma cívica independente para consultar informação pública e classificar o desempenho de titulares de cargos políticos."
+    updatedAt={legalDetails.updatedAt}>
+    <section id="resumo" aria-labelledby="resumo-title">
+      <h2 id="resumo-title">Resumo em linguagem simples</h2>
+      <div class="legal-card">
+        <ul>
+          <li>
+            O ClassifiQA é gratuito, independente e não representa o Governo, a
+            Assembleia da República, partidos políticos ou as pessoas
+            classificadas.
+          </li>
+          <li>
+            Podes consultar informação sem conta. Para publicar classificações
+            ou participar noutras funcionalidades interativas, precisas de uma
+            conta e tens de respeitar estas regras.
+          </li>
+          <li>
+            Não publiques ameaças, assédio, discriminação, acusações factuais
+            sem fundamento, dados privados, spam ou qualquer conteúdo ilegal.
+          </li>
+          <li>
+            Podemos limitar ou remover conteúdo e suspender contas para cumprir
+            a lei e proteger a comunidade. Explicaremos a decisão e indicaremos
+            como a podes contestar.
+          </li>
+          <li>
+            Se tiveres entre 13 e 17 anos, deves usar uma linguagem adequada e
+            obter autorização do teu representante legal quando a lei a exigir.
+            Menores de 13 anos não podem criar conta.
+          </li>
+        </ul>
+      </div>
+      <p>
+        Este resumo ajuda a compreender as regras, mas não substitui as
+        disposições seguintes.
+      </p>
+    </section>
+
+    <section id="contacto" aria-labelledby="contacto-title">
+      <h2 id="contacto-title">1. Identificação e contacto do responsável</h2>
+      <p>
+        O sítio <strong>classifiqa.pt</strong> e o serviço ClassifiQA («ClassifiQA»,
+        «Plataforma» ou «Serviço») são disponibilizados por um operador individual
+        estabelecido em Portugal. O nome «ClassifiQA» identifica o projeto e não uma
+        sociedade comercial ou outra pessoa coletiva.
+      </p>
+      <p>
+        Para comunicações jurídicas, administrativas, contratuais ou
+        relacionadas com o Serviço, o responsável pode ser contactado através do
+        endereço{" "}
+        <a href={`mailto:${legalDetails.legalEmail}`}>
+          {legalDetails.legalEmail}
+        </a>. Este endereço constitui o ponto de contacto eletrónico permanente
+        do ClassifiQA.
+      </p>
+      <p>
+        Os elementos de identificação legal não publicados serão comunicados
+        diretamente às autoridades competentes quando sejam objeto de um pedido
+        válido e juridicamente vinculativo.
+      </p>
+      <p>
+        O projeto é gerido a partir de Portugal. O alojamento técnico num
+        servidor situado em França não altera, por si só, o local de atividade
+        do responsável nem a lei aplicável indicada nestes Termos.
+      </p>
+    </section>
+
+    <section id="ambito" aria-labelledby="ambito-title">
+      <h2 id="ambito-title">2. Objeto, aceitação e formação do contrato</h2>
+      <p>
+        Estes Termos constituem o acordo entre o utilizador e o responsável
+        relativamente ao acesso e à utilização da Plataforma. A Política de
+        Privacidade explica separadamente como são tratados dados pessoais e não
+        constitui uma autorização genérica para esse tratamento.
+      </p>
+      <p>
+        A consulta das áreas públicas está sujeita às regras que, pela sua
+        natureza, se apliquem a visitantes. Ao criar uma conta, o utilizador
+        confirma expressamente que leu e aceitou estes Termos e teve acesso à
+        Política de Privacidade. Antes de concluir o registo, pode rever e
+        corrigir os dados introduzidos. O contrato é celebrado em português e os
+        Termos ficam permanentemente disponíveis nesta página, podendo ser
+        guardados ou impressos.
+      </p>
+      <p>
+        Se não concordar com os Termos, o utilizador não deve criar conta nem
+        utilizar funcionalidades que exijam a sua aceitação.
+      </p>
+    </section>
+
+    <section id="elegibilidade" aria-labelledby="elegibilidade-title">
+      <h2 id="elegibilidade-title">3. Idade e capacidade</h2>
+      <p>
+        É necessário ter pelo menos <strong>13 anos</strong> para criar uma conta.
+        Quem tenha entre 13 e 17 anos deve compreender estas regras e obter a autorização
+        ou representação do titular das responsabilidades parentais sempre que a lei
+        portuguesa o exija. O representante legal é encorajado a acompanhar a utilização
+        da Plataforma.
+      </p>
+      <p>
+        Se soubermos que uma conta pertence a uma criança com menos de 13 anos,
+        bloquearemos a conta e apagaremos os respetivos dados, salvo quando a
+        conservação seja legalmente necessária. Dúvidas ou pedidos de um
+        representante legal podem ser enviados para {legalDetails.legalEmail}.
+      </p>
+    </section>
+
+    <section id="conta" aria-labelledby="conta-title">
+      <h2 id="conta-title">4. Registo e segurança da conta</h2>
+      <p>O utilizador compromete-se a:</p>
+      <ul>
+        <li>
+          escolher um nome de utilizador e fornecer um endereço de e-mail
+          válido, mantendo os dados necessários atualizados;
+        </li>
+        <li>
+          não criar uma conta em nome de outra pessoa nem fazer-se passar por
+          pessoa, instituição ou representante oficial;
+        </li>
+        <li>
+          proteger a palavra-passe, os fatores de autenticação e os códigos de
+          recuperação;
+        </li>
+        <li>
+          comunicar sem demora qualquer acesso ou utilização não autorizados;
+        </li>
+        <li>não ceder, vender ou disponibilizar a conta a terceiros.</li>
+      </ul>
+      <p>
+        O utilizador é responsável pela atividade realizada através da sua conta
+        na medida permitida por lei. O ClassifiQA nunca solicitará a
+        palavra-passe completa por e-mail.
+      </p>
+    </section>
+
+    <section id="servico" aria-labelledby="servico-title">
+      <h2 id="servico-title">5. O Serviço</h2>
+      <p>
+        A Plataforma permite consultar informação sobre titulares de cargos
+        políticos, atribuir classificações de 0 a 20 aos titulares atualmente
+        classificáveis, consultar resultados agregados e participar em
+        comentários e respostas. Só pode existir uma classificação ativa por
+        conta e por titular. Registos históricos são identificados como tal e
+        não podem receber novas classificações.
+      </p>
+      <p>
+        O acesso é atualmente gratuito e não implica custos cobrados pelo
+        ClassifiQA, sem prejuízo dos custos de internet ou telecomunicações do
+        utilizador. Qualquer futura funcionalidade paga será apresentada com
+        informação prévia, clara e completa e não será ativada sem uma ação
+        expressa do utilizador.
+      </p>
+      <p>
+        Poderão ser aceites donativos voluntários através de serviços de
+        terceiros. Um donativo não compra acesso, destaque, influência sobre
+        classificações ou qualquer outro serviço e não altera a independência
+        editorial do ClassifiQA. Os prestadores e condições aplicáveis serão
+        identificados antes de esta possibilidade ser ativada.
+      </p>
+      <p>
+        Podemos corrigir erros, atualizar fontes, alterar funcionalidades ou
+        interromper temporariamente o Serviço por manutenção, segurança ou
+        exigência legal. Procuraremos avisar com antecedência quando uma
+        alteração previsível afetar materialmente os utilizadores.
+      </p>
+    </section>
+
+    <section id="independencia" aria-labelledby="independencia-title">
+      <h2 id="independencia-title">
+        6. Independência, fontes e natureza das classificações
+      </h2>
+      <p>
+        O ClassifiQA é um projeto independente. Não é um serviço oficial e não é
+        patrocinado, aprovado ou gerido pela Presidência da República, Governo,
+        Assembleia da República, partidos políticos, grupos parlamentares ou
+        pessoas apresentadas na Plataforma.
+      </p>
+      <p>
+        Os nomes, cargos, partidos, fotografias e outros elementos
+        institucionais são obtidos de fontes oficiais identificadas,
+        nomeadamente os sítios do Governo de Portugal e da Assembleia da
+        República. Apesar do cuidado na atualização, a informação pode ficar
+        desatualizada ou conter erros. Em caso de divergência, prevalece a fonte
+        oficial. Correções podem ser pedidas através de {
+          legalDetails.legalEmail
+        }.
+      </p>
+      <p>
+        As classificações exprimem opiniões individuais ou resultados
+        estatísticos da comunidade. São apresentadas apenas de forma agregada e
+        sem identificar publicamente quem classificou. Não constituem sondagens
+        eleitorais, estudos científicos, factos sobre a competência ou conduta
+        de uma pessoa, nem aconselhamento político, jurídico ou de outra
+        natureza.
+      </p>
+    </section>
+
+    <section id="conteudo" aria-labelledby="conteudo-title">
+      <h2 id="conteudo-title">7. Conteúdo do utilizador</h2>
+      <p>
+        «Conteúdo do utilizador» inclui classificações, comentários, respostas,
+        nomes de utilizador quando tornados visíveis por escolha expressa,
+        denúncias e qualquer informação submetida à Plataforma. O utilizador
+        mantém os direitos que tenha sobre o seu conteúdo e é responsável por
+        garantir que o pode publicar.
+      </p>
+      <p>
+        Ao submeter conteúdo destinado a ser apresentado ou agregado na
+        Plataforma, o utilizador concede ao responsável uma licença não
+        exclusiva, gratuita e limitada ao período necessário para alojar,
+        reproduzir, formatar, moderar, apresentar e distribuir esse conteúdo
+        exclusivamente para operar, proteger e divulgar o Serviço. A licença
+        termina quando o conteúdo é apagado dos sistemas ativos, exceto quanto a
+        cópias de segurança temporárias, conteúdo legitimamente partilhado por
+        terceiros, resultados estatísticos anonimizados ou conservação exigida
+        por lei.
+      </p>
+      <p>
+        As classificações são agregadas e anónimas perante o público. Os
+        comentários e respostas são públicos. O nome de utilizador e os campos
+        opcionais do perfil são privados por defeito e só podem acompanhar
+        conteúdo público após escolha específica do utilizador. Não devem ser
+        incluídos moradas, contactos, documentos de identificação, dados de
+        saúde ou outros dados privados, próprios ou de terceiros.
+      </p>
+    </section>
+
+    <section id="regras" aria-labelledby="regras-title">
+      <h2 id="regras-title">8. Regras de participação</h2>
+      <p>Não é permitido utilizar a Plataforma para:</p>
+      <ul>
+        <li>
+          publicar conteúdo ilegal, ameaçador, difamatório, calunioso,
+          discriminatório, de incitamento ao ódio ou à violência, de assédio ou
+          que viole direitos de personalidade;
+        </li>
+        <li>
+          apresentar como facto uma acusação criminal ou outra imputação grave
+          sem base factual idónea, falsificar provas ou manipular informação;
+        </li>
+        <li>
+          divulgar dados pessoais de terceiros que não sejam necessários e
+          legitimamente públicos no contexto do cargo em causa;
+        </li>
+        <li>
+          violar direitos de autor, marcas, segredos, confidencialidade ou
+          outros direitos de terceiros;
+        </li>
+        <li>
+          manipular classificações através de contas múltiplas, coordenação
+          inautêntica, compra de votos, automação, bots ou exploração de falhas;
+        </li>
+        <li>
+          enviar publicidade não solicitada, esquemas, malware, código nocivo ou
+          pedidos enganosos;
+        </li>
+        <li>
+          recolher dados, fazer scraping ou testar a segurança de forma que
+          prejudique o Serviço, contorne limites técnicos ou viole a lei;
+        </li>
+        <li>
+          interferir com o funcionamento, sobrecarregar a infraestrutura ou
+          tentar obter acesso não autorizado.
+        </li>
+      </ul>
+      <p>
+        A crítica política firme, a sátira e opiniões negativas não são
+        proibidas apenas por serem incómodas. Devem, contudo, respeitar a lei, a
+        dignidade humana e os direitos de terceiros.
+      </p>
+    </section>
+
+    <section id="moderacao" aria-labelledby="moderacao-title">
+      <h2 id="moderacao-title">9. Moderação e medidas aplicáveis</h2>
+      <p>
+        Podemos analisar conteúdo por iniciativa própria ou após denúncia.
+        Atualmente, as decisões finais de moderação são tomadas com intervenção
+        humana; não são tomadas exclusivamente por sistemas automatizados.
+      </p>
+      <p>
+        Consoante a gravidade, contexto, frequência e risco, podemos reduzir a
+        visibilidade, excluir resultados agregados, remover ou bloquear
+        conteúdo, limitar funcionalidades, suspender ou desativar contas e
+        impedir novos registos. Sempre que aplicável, consideraremos os direitos
+        e interesses legítimos de todas as partes, incluindo a liberdade de
+        expressão.
+      </p>
+      <p>
+        Quando restringirmos conteúdo ou uma conta por alegada ilegalidade ou
+        violação destes Termos, comunicaremos ao utilizador afetado, salvo
+        impedimento legal, uma fundamentação clara que indique a medida, os
+        factos essenciais, se existiu denúncia, a regra contratual ou fundamento
+        legal, eventual uso de automação e as vias de contestação disponíveis.
+      </p>
+      <p>
+        Podemos comunicar às autoridades suspeitas de crime que envolvam ameaça
+        à vida ou segurança de pessoas e cooperar com ordens legalmente válidas.
+      </p>
+    </section>
+
+    <section id="denuncia" aria-labelledby="denuncia-title">
+      <h2 id="denuncia-title">10. Denúncia de conteúdo ilegal</h2>
+      <p>
+        Qualquer pessoa ou entidade pode denunciar um elemento específico que
+        considere ilegal através de {legalDetails.legalEmail}. A denúncia deve
+        incluir:
+      </p>
+      <ol>
+        <li>
+          uma explicação fundamentada das razões pelas quais o conteúdo é
+          considerado ilegal;
+        </li>
+        <li>
+          a localização eletrónica exata, de preferência o URL completo, e
+          informação adicional que permita identificar o conteúdo;
+        </li>
+        <li>
+          o nome e endereço de e-mail do denunciante, salvo nas exceções legais
+          relativas a determinados crimes contra menores;
+        </li>
+        <li>
+          uma declaração de boa-fé de que a informação apresentada é exata e
+          completa.
+        </li>
+      </ol>
+      <p>
+        Confirmaremos a receção quando tiver sido fornecido um contacto e
+        comunicaremos a decisão e vias de recurso sem demora injustificada.
+        Trataremos as denúncias de forma atempada, diligente, objetiva e não
+        arbitrária. Denúncias manifestamente infundadas ou abusivas e conteúdo
+        manifestamente ilegal submetidos repetidamente podem originar
+        advertência e suspensão, após análise das circunstâncias.
+      </p>
+      <p>
+        O ponto de contacto único do responsável para destinatários do serviço e
+        autoridades é {legalDetails.legalEmail}. As comunicações podem ser
+        feitas em português ou inglês.
+      </p>
+    </section>
+
+    <section id="contestacao" aria-labelledby="contestacao-title">
+      <h2 id="contestacao-title">11. Contestação de decisões</h2>
+      <p>
+        O utilizador afetado e, quando aplicável, o denunciante podem contestar
+        gratuitamente uma decisão de moderação enviando a fundamentação e a
+        referência da decisão para {legalDetails.legalEmail}, no prazo de seis
+        meses. A reapreciação será efetuada de forma diligente por uma pessoa
+        com qualificação adequada e não apenas pelo sistema que tenha apoiado a
+        decisão inicial.
+      </p>
+      <p>
+        Quando o Regulamento dos Serviços Digitais o preveja, o utilizador pode
+        ainda recorrer a um organismo certificado de resolução extrajudicial ou
+        aos tribunais. Também pode apresentar reclamação ao Coordenador dos
+        Serviços Digitais em Portugal, a{" "}
+        <a href="https://www.anacom.pt/" target="_blank" rel="noreferrer">
+          ANACOM
+        </a>. Estes mecanismos não limitam outros direitos.
+      </p>
+    </section>
+
+    <section id="propriedade" aria-labelledby="propriedade-title">
+      <h2 id="propriedade-title">12. Propriedade intelectual</h2>
+      <p>
+        Salvo indicação em contrário, o software, design, textos próprios,
+        elementos gráficos, marca e organização da Plataforma pertencem ao
+        responsável ou são utilizados ao abrigo de licença. As licenças de
+        componentes de código aberto continuam sujeitas aos respetivos termos.
+      </p>
+      <p>
+        A informação oficial, fotografias, nomes, símbolos e marcas de terceiros
+        pertencem aos respetivos titulares e a sua apresentação não implica
+        afiliação. É permitida a ligação às páginas públicas e a utilização
+        legal para fins pessoais, de citação, crítica ou informação. Não é
+        concedido qualquer direito de explorar comercialmente a marca ClassifiQA
+        ou copiar substancialmente a base de dados, sem autorização ou outro
+        fundamento legal.
+      </p>
+    </section>
+
+    <section id="terceiros" aria-labelledby="terceiros-title">
+      <h2 id="terceiros-title">13. Ligações e serviços de terceiros</h2>
+      <p>
+        A Plataforma contém ligações para fontes oficiais e pode depender de
+        serviços técnicos de terceiros. Esses sítios têm conteúdos, segurança e
+        políticas próprias. O ClassifiQA não controla nem endossa todo o
+        conteúdo externo e não é responsável por alterações ou indisponibilidade
+        de serviços de terceiros, sem prejuízo da responsabilidade legal que não
+        possa ser excluída.
+      </p>
+    </section>
+
+    <section id="privacidade" aria-labelledby="privacidade-title">
+      <h2 id="privacidade-title">
+        14. Privacidade e tecnologias no dispositivo
+      </h2>
+      <p>
+        O tratamento de dados pessoais, os prazos de conservação, os
+        destinatários e os direitos dos titulares são explicados na{" "}
+        <a href="/legal/privacidade">Política de Privacidade</a>. A Plataforma
+        utiliza apenas cookies ou armazenamento local estritamente necessários
+        ou solicitados pelo utilizador, nos termos ali descritos. Tecnologias
+        não essenciais só serão utilizadas depois de prestada informação e
+        obtido o consentimento exigido por lei.
+      </p>
+    </section>
+
+    <section id="cessacao" aria-labelledby="cessacao-title">
+      <h2 id="cessacao-title">15. Desativação e cessação</h2>
+      <p>
+        O utilizador pode deixar de usar o Serviço e desativar a conta nas
+        definições. A desativação bloqueia o acesso, mas não equivale ao
+        apagamento imediato de todos os dados. O pedido de apagamento pode ser
+        feito nos termos da Política de Privacidade.
+      </p>
+      <p>
+        Podemos suspender ou cessar o acesso quando exista violação destes
+        Termos, risco de segurança, obrigação legal, abuso reiterado ou
+        encerramento do Serviço. Salvo urgência ou proibição legal, daremos
+        informação prévia ou uma fundamentação e oportunidade de contestação. As
+        disposições que pela sua natureza devam subsistir - incluindo
+        propriedade intelectual, responsabilidade, resolução de litígios e
+        conservação legal - mantêm-se após a cessação.
+      </p>
+    </section>
+
+    <section id="garantias" aria-labelledby="garantias-title">
+      <h2 id="garantias-title">16. Disponibilidade e responsabilidade</h2>
+      <p>
+        O Serviço é disponibilizado com diligência razoável, mas não se garante
+        funcionamento ininterrupto, ausência absoluta de erros ou atualização
+        imediata de todas as fontes. O utilizador deve confirmar decisões
+        relevantes junto das fontes oficiais.
+      </p>
+      <p>
+        Na máxima medida permitida pela lei, o responsável não responde por
+        danos indiretos ou consequências de conteúdo publicado por utilizadores,
+        indisponibilidades fora do seu controlo razoável ou utilização contrária
+        a estes Termos. Nada nestes Termos exclui ou limita responsabilidade por
+        dolo, culpa grave, morte ou lesão pessoal imputável, violação de
+        direitos de consumidores ou qualquer responsabilidade que a lei não
+        permita excluir.
+      </p>
+      <p>
+        O Serviço destina-se principalmente a utilizadores interessados na vida
+        pública portuguesa, incluindo residentes no estrangeiro. Pode ficar
+        indisponível em determinados países por imposições legais, sanções,
+        segurança da infraestrutura ou decisões técnicas proporcionais,
+        incluindo atualmente Coreia do Norte, Israel e Rússia. Esta limitação
+        geográfica pode ser alterada sem afetar contas legitimamente acessíveis
+        noutros países.
+      </p>
+    </section>
+
+    <section id="alteracoes" aria-labelledby="alteracoes-title">
+      <h2 id="alteracoes-title">17. Alterações aos Termos</h2>
+      <p>
+        Podemos atualizar estes Termos por alterações legais, de segurança ou do
+        Serviço. A versão atual indica a data de atualização. Alterações
+        materiais serão comunicadas por meio adequado com antecedência razoável,
+        normalmente de 15 dias, salvo se a lei, uma ordem de autoridade ou um
+        risco urgente exigir aplicação mais rápida. Quando necessário,
+        solicitaremos nova aceitação. As versões anteriores serão facultadas
+        mediante pedido.
+      </p>
+    </section>
+
+    <section id="lei" aria-labelledby="lei-title">
+      <h2 id="lei-title">18. Lei aplicável e litígios</h2>
+      <p>
+        Estes Termos regem-se pela lei portuguesa e pelo Direito da União
+        Europeia diretamente aplicável. Se o utilizador for consumidor, mantém a
+        proteção das normas imperativas do país da sua residência habitual e os
+        direitos relativos ao tribunal competente que a lei lhe reconheça.
+      </p>
+      <p>
+        As partes procurarão resolver de boa-fé qualquer litígio através do
+        contacto {legalDetails.legalEmail}. Na falta de acordo, são competentes
+        os tribunais portugueses determinados pelas regras legais aplicáveis,
+        sem imposição de foro que prive um consumidor dos seus direitos.
+      </p>
+      <h3>Resolução alternativa de litígios de consumo</h3>
+      <p>
+        O Serviço é atualmente gratuito e não comercializa bens ou serviços
+        pagos nem celebra, por essa utilização, um contrato de consumo oneroso.
+        Por esse motivo, a indicação de uma entidade de resolução alternativa de
+        litígios de consumo não é atualmente aplicável. Se vierem a existir
+        serviços pagos, estes Termos serão atualizados antes da sua
+        disponibilização e será indicada a entidade competente. A lista oficial
+        das entidades está disponível na{" "}
+        <a
+          href="https://www.consumidor.gov.pt/"
+          target="_blank"
+          rel="noreferrer">Direção-Geral do Consumidor</a
+        >.
+      </p>
+    </section>
+
+    <section id="contactos" aria-labelledby="contactos-title">
+      <h2 id="contactos-title">19. Contacto</h2>
+      <p>
+        Todas as comunicações relativas ao ClassifiQA, incluindo questões
+        jurídicas, reclamações, privacidade, denúncias de conteúdo e recursos de
+        moderação, devem ser enviadas para{" "}
+        <a href={`mailto:${legalDetails.legalEmail}`}>
+          {legalDetails.legalEmail}
+        </a>.
+      </p>
+    </section>
+  </LegalPage>
+</MainLayout>

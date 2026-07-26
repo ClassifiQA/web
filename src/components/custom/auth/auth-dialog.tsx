@@ -424,9 +424,9 @@ const SignUpForm = ({
   return (
     <form className="grid gap-4" onSubmit={handleSubmit}>
       <AuthField
-        label="Nome"
+        label="Nome de utilizador"
         name="name"
-        autoComplete="name"
+        autoComplete="username"
         disabled={isSubmitting}
       />
       <AuthField
@@ -444,6 +444,35 @@ const SignUpForm = ({
         minLength={8}
         disabled={isSubmitting}
       />
+      <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
+        <input
+          className="mt-1 size-4 shrink-0 accent-accent"
+          name="terms"
+          type="checkbox"
+          required
+          disabled={isSubmitting}
+        />
+        <span>
+          Confirmo que tenho pelo menos 13 anos, que li e aceito os{" "}
+          <a
+            className="font-semibold text-accent underline underline-offset-2"
+            href="/legal/termos"
+            target="_blank"
+            rel="noreferrer">
+            Termos e Condições
+          </a>{" "}
+          e que tomei conhecimento da{" "}
+          <a
+            className="font-semibold text-accent underline underline-offset-2"
+            href="/legal/privacidade"
+            target="_blank"
+            rel="noreferrer">
+            Política de Privacidade
+          </a>
+          . Se for menor, confirmo que tenho autorização do meu representante
+          legal quando exigida.
+        </span>
+      </label>
       <FormError message={error} />
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "A criar conta…" : "Criar Conta"}
