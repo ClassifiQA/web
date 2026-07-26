@@ -1,0 +1,712 @@
+---
+import LegalPage from "@/components/custom/legal/legal-page.astro"
+import { legalDetails } from "@/config/legal"
+import MainLayout from "@/layouts/main.astro"
+---
+
+<MainLayout
+  title="Política de Privacidade | ClassifiQA"
+  className="h-dvh"
+  description="Informação sobre o tratamento de dados pessoais e a utilização de cookies no ClassifiQA.">
+  <LegalPage
+    title="Política de Privacidade"
+    description="Esta Política explica que dados pessoais o ClassifiQA trata, para quê, durante quanto tempo, com quem os partilha e como podes exercer os teus direitos."
+    updatedAt={legalDetails.updatedAt}>
+    <section id="resumo" aria-labelledby="resumo-title">
+      <h2 id="resumo-title">Resumo em linguagem simples</h2>
+      <div class="legal-card">
+        <ul>
+          <li>
+            Podes consultar as páginas públicas sem criar uma conta. Para
+            participar, pedimos um nome de utilizador, e-mail e palavra-passe.
+          </li>
+          <li>
+            Cargo/função e escola são opcionais e privados por defeito. Não
+            vendemos os teus dados nem os usamos para publicidade
+            comportamental.
+          </li>
+          <li>
+            O servidor está em França, dentro do Espaço Económico Europeu (EEE).
+            Isso não é, por si só, uma transferência internacional de dados.
+          </li>
+          <li>
+            Usamos dados para disponibilizar e proteger a conta, publicar ou
+            agregar a tua participação, enviar as notificações escolhidas e
+            cumprir a lei.
+          </li>
+          <li>
+            Podes pedir acesso, correção, apagamento, limitação, portabilidade
+            ou oposição através de {legalDetails.legalEmail}.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="responsavel" aria-labelledby="responsavel-title">
+      <h2 id="responsavel-title">1. Responsável pelo tratamento</h2>
+      <p>
+        O responsável pelo tratamento é o operador individual do ClassifiQA,
+        estabelecido em Portugal. O ClassifiQA é a designação do projeto e não
+        corresponde a uma sociedade comercial ou a outra pessoa coletiva.
+      </p>
+      <p>
+        Para efeitos do artigo 13.º do RGPD, comunicações relativas ao
+        tratamento de dados pessoais, exercício de direitos e contactos com o
+        responsável devem ser dirigidos a{" "}
+        <a href={`mailto:${legalDetails.legalEmail}`}>
+          {legalDetails.legalEmail}
+        </a>. Este endereço constitui o canal eletrónico permanente para
+        matérias de privacidade e proteção de dados.
+      </p>
+      <p>
+        Os elementos de identificação legal não publicados serão comunicados
+        diretamente às autoridades competentes quando sejam objeto de um pedido
+        válido e juridicamente vinculativo.
+      </p>
+    </section>
+
+    <section id="ambito" aria-labelledby="ambito-title">
+      <h2 id="ambito-title">2. Âmbito e princípios</h2>
+      <p>
+        Esta Política aplica-se ao sítio classifiqa.pt, às contas ClassifiQA e
+        às comunicações diretamente relacionadas. O tratamento respeita o
+        Regulamento Geral sobre a Proteção de Dados («RGPD»), a Lei n.º 58/2019,
+        a Lei n.º 41/2004 e demais legislação aplicável.
+      </p>
+      <p>
+        Procuramos tratar apenas dados adequados, pertinentes e necessários para
+        finalidades determinadas, mantê-los exatos, conservá-los apenas pelo
+        tempo necessário e protegê-los com medidas proporcionais ao risco.
+        Ligações para sítios de terceiros são regidas pelas políticas desses
+        terceiros.
+      </p>
+    </section>
+
+    <section id="dados" aria-labelledby="dados-title">
+      <h2 id="dados-title">3. Dados que tratamos e respetiva origem</h2>
+
+      <h3>Dados fornecidos pelo utilizador</h3>
+      <ul>
+        <li>
+          <strong>Conta:</strong> nome de utilizador escolhido livremente, endereço
+          de e-mail, palavra-passe protegida por hash Argon2, estado e data de verificação
+          do e-mail.
+        </li>
+        <li>
+          <strong>Perfil opcional:</strong> cargo/função e escola ou instituição.
+          Estes campos são privados por defeito e só serão apresentados publicamente
+          mediante escolha expressa do utilizador.
+        </li>
+        <li>
+          <strong>Segurança:</strong> fatores de autenticação multifator, autenticadores
+          configurados e códigos de recuperação. Não temos acesso à palavra-passe
+          em texto simples nem pedimos que nos envies códigos de recuperação.
+        </li>
+        <li>
+          <strong>Preferências:</strong> opções de notificações de atividade e segurança
+          por e-mail ou na Plataforma e, quando o utilizador ativar a permissão correspondente,
+          no navegador, bem como versão e data dos Termos aceites e da Política disponibilizada
+          no registo.
+        </li>
+        <li>
+          <strong>Participação:</strong> classificações, comentários, respostas, denúncias,
+          contestações e o histórico necessário para prevenir manipulação e aplicar
+          as regras.
+        </li>
+        <li>
+          <strong>Comunicações:</strong> pedidos de suporte, exercício de direitos,
+          reclamações e correspondência associada.
+        </li>
+      </ul>
+
+      <h3>Dados recolhidos automaticamente</h3>
+      <ul>
+        <li>
+          endereço IP, data e hora, pedidos efetuados, códigos de resposta e
+          informação limitada do navegador ou dispositivo constante de registos
+          técnicos;
+        </li>
+        <li>
+          identificadores de conta, sessão e segurança, data de criação e
+          utilização da sessão, país aproximado ou informação semelhante
+          disponibilizada pelo sistema de autenticação;
+        </li>
+        <li>
+          eventos de segurança, tentativas falhadas, alterações relevantes da
+          conta e dados necessários para investigar abuso ou falhas.
+        </li>
+      </ul>
+      <p>
+        Não utilizamos estes dados para determinar a localização precisa do
+        utilizador nem para publicidade comportamental.
+      </p>
+
+      <h3>Dados de titulares de cargos públicos</h3>
+      <p>
+        Recolhemos de sítios institucionais do Governo de Portugal e da
+        Assembleia da República nomes, cargos, partido ou grupo parlamentar,
+        fotografias e ligações à fonte de pessoas no exercício de funções
+        públicas. Não recolhemos, para este diretório, moradas privadas,
+        contactos pessoais ou dados sem relação necessária com a função pública.
+      </p>
+      <p>
+        Quando uma fonte oficial revelar filiação ou associação política, que
+        pode constituir categoria especial de dados, o tratamento limita-se ao
+        que foi manifestamente tornado público pela própria pessoa ou ao que é
+        estritamente necessário ao exercício legítimo da liberdade de expressão
+        e informação, com respeito pela dignidade e pelos direitos de
+        personalidade. Pedidos de correção ou oposição serão avaliados de forma
+        individual.
+      </p>
+    </section>
+
+    <section id="finalidades" aria-labelledby="finalidades-title">
+      <h2 id="finalidades-title">4. Finalidades e fundamentos jurídicos</h2>
+      <div class="legal-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Finalidade</th>
+              <th>Dados principais</th>
+              <th>Fundamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Criar, autenticar e gerir a conta e preferências</td>
+              <td>Conta, perfil, sessão e preferências</td>
+              <td>
+                Execução do contrato e diligências pré-contratuais - artigo 6.º,
+                n.º 1, alínea b), do RGPD
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Receber, apresentar e agregar classificações e outra
+                participação
+              </td>
+              <td>Conta, classificação, conteúdo e metadados essenciais</td>
+              <td>
+                Execução do contrato e interesse legítimo em disponibilizar uma
+                plataforma cívica íntegra - alíneas b) e f)
+              </td>
+            </tr>
+            <tr>
+              <td
+                >Verificar e-mail, recuperar acesso e enviar alertas essenciais</td
+              >
+              <td>E-mail, conta e eventos de segurança</td>
+              <td>
+                Execução do contrato e interesse legítimo em proteger contas e o
+                Serviço - alíneas b) e f)
+              </td>
+            </tr>
+            <tr>
+              <td>Prevenir fraude, votos inautênticos, abuso e incidentes</td>
+              <td>Conta, IP, sessões, registos e atividade</td>
+              <td>
+                Interesse legítimo na segurança e integridade do Serviço -
+                alínea f)
+              </td>
+            </tr>
+            <tr>
+              <td>Moderar conteúdo, receber denúncias e decidir contestações</td
+              >
+              <td>Conteúdo, conta, denúncia, decisão e comunicações</td>
+              <td>
+                Execução do contrato, obrigação legal e interesse legítimo em
+                proteger direitos e a comunidade - alíneas b), c) e f)
+              </td>
+            </tr>
+            <tr>
+              <td>Responder a pedidos, reclamações e direitos RGPD</td>
+              <td>Identidade, contacto, pedido e prova de resposta</td>
+              <td>
+                Obrigação legal e interesse legítimo na gestão e defesa de
+                direitos - alíneas c) e f)
+              </td>
+            </tr>
+            <tr>
+              <td>Disponibilizar o diretório de titulares de cargos públicos</td
+              >
+              <td>Nome, cargo, partido, imagem e fonte oficial</td>
+              <td>
+                Interesse legítimo e liberdade de expressão e informação -
+                artigo 6.º, n.º 1, alínea f), artigo 85.º do RGPD e artigo 24.º
+                da Lei n.º 58/2019; quando aplicável, artigo 9.º, n.º 2, alínea
+                e), do RGPD
+              </td>
+            </tr>
+            <tr>
+              <td>Cumprir ordens e conservar prova para processos</td>
+              <td>Dados estritamente abrangidos pela obrigação ou litígio</td>
+              <td>
+                Obrigação legal e declaração, exercício ou defesa de direitos -
+                alíneas c) e f)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Nos tratamentos baseados em interesse legítimo, ponderamos a necessidade
+        do tratamento, o impacto previsível, as expectativas dos titulares e
+        salvaguardas como minimização, limitação de acesso e oposição. Pode
+        pedir informação sobre essa ponderação.
+      </p>
+    </section>
+
+    <section id="obrigatoriedade" aria-labelledby="obrigatoriedade-title">
+      <h2 id="obrigatoriedade-title">5. Dados obrigatórios e opcionais</h2>
+      <p>
+        Um nome de utilizador, e-mail e palavra-passe são necessários para criar
+        uma conta. O nome de utilizador não tem de corresponder ao nome civil,
+        mas não pode ser usado para fazer-se passar por outra pessoa. Sem estes
+        dados não é possível disponibilizar autenticação e participação
+        associada a uma conta. Cargo/função, escola, autenticação multifator e
+        notificações no navegador são opcionais.
+      </p>
+      <p>
+        Alguns dados técnicos e de segurança são gerados automaticamente quando
+        o Serviço é utilizado. Sem os estritamente necessários, pode não ser
+        possível manter uma sessão segura ou prevenir abuso.
+      </p>
+    </section>
+
+    <section id="publicacao" aria-labelledby="publicacao-title">
+      <h2 id="publicacao-title">6. Conteúdo público e categorias especiais</h2>
+      <p>
+        As classificações numéricas são associadas internamente à conta para
+        impedir duplicações e manipulação, mas são apresentadas ao público
+        apenas sob a forma de resultados agregados e sem identificação do
+        utilizador. Só pode existir uma classificação ativa por utilizador e por
+        titular de cargo suscetível de classificação.
+      </p>
+      <p>
+        Os comentários e respostas destinam-se a ser públicos. O nome de
+        utilizador e os campos opcionais do perfil permanecem privados por
+        defeito e só podem acompanhar conteúdo público após uma escolha
+        específica e informada do utilizador. Conteúdo público pode ser visto,
+        copiado e citado por terceiros, incluindo motores de pesquisa, fora do
+        nosso controlo.
+      </p>
+      <p>
+        Não publiques dados pessoais desnecessários nem informação sobre saúde,
+        origem racial ou étnica, religião, vida sexual, orientação sexual, dados
+        biométricos, filiação sindical ou outras categorias especialmente
+        protegidas, tuas ou de terceiros. Uma opinião política que escolhas
+        tornar publicamente acessível pode revelar uma categoria especial de
+        dados. A Plataforma não necessita dessa informação para aceitar uma
+        classificação numérica.
+      </p>
+    </section>
+
+    <section id="cookies" aria-labelledby="cookies-title">
+      <h2 id="cookies-title">7. Cookies e armazenamento local</h2>
+      <p>
+        A versão atual não integra ferramentas de publicidade, rastreamento
+        comportamental ou analítica não essencial. Utiliza as seguintes
+        tecnologias necessárias ou expressamente solicitadas:
+      </p>
+      <div class="legal-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tecnologia</th>
+              <th>Finalidade</th>
+              <th>Duração</th>
+              <th>Base</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cookie(s) de sessão e segurança Appwrite</td>
+              <td>
+                Autenticar o utilizador, manter a sessão e prevenir utilizações
+                abusivas
+              </td>
+              <td>
+                Durante a sessão ou até à expiração configurada; termina mais
+                cedo ao encerrar a sessão
+              </td>
+              <td>
+                Estritamente necessário para o serviço pedido pelo utilizador
+              </td>
+            </tr>
+            <tr>
+              <td><code>theme</code> no armazenamento local</td>
+              <td>Guardar a preferência claro, escuro ou sistema</td>
+              <td>Até o utilizador alterar ou apagar os dados do navegador</td>
+              <td>Necessário para recordar uma preferência pedida</td>
+            </tr>
+            <tr>
+              <td>Cookies estritamente necessários da Cloudflare</td>
+              <td>
+                Proteger a Plataforma contra tráfego abusivo, validar desafios
+                de segurança e aplicar limitações de pedidos
+              </td>
+              <td>
+                Conforme o mecanismo acionado. Por exemplo, <code>__cf_bm</code>
+                expira após 30 minutos de inatividade e <code>cf_clearance</code
+                >
+                vigora durante o período de validação configurado
+              </td>
+              <td>
+                Estritamente necessário para segurança e prestação do serviço
+                pedido
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        O navegador permite consultar, bloquear ou apagar estas tecnologias.
+        Bloquear as estritamente necessárias pode impedir o início de sessão ou
+        outras funcionalidades pedidas. Se forem adicionadas tecnologias não
+        essenciais, esta Política e a interface de preferências serão
+        atualizadas e o acesso ao dispositivo só ocorrerá após consentimento,
+        quando exigido.
+      </p>
+    </section>
+
+    <section id="destinatarios" aria-labelledby="destinatarios-title">
+      <h2 id="destinatarios-title">8. Destinatários e subcontratantes</h2>
+      <p>
+        O acesso é limitado a quem necessite dos dados para as finalidades
+        descritas. Podemos disponibilizar dados às seguintes categorias:
+      </p>
+      <ul>
+        <li>
+          <strong>Alojamento e infraestrutura:</strong>
+          {legalDetails.hostingProvider};
+        </li>
+        <li>
+          <strong>Rede, DNS, proxy, CDN e segurança:</strong>
+          {legalDetails.networkProvider};
+        </li>
+        <li>
+          <strong>Cópias de segurança:</strong>
+          {legalDetails.backupDetails};
+        </li>
+        <li>
+          <strong>Correio eletrónico transacional:</strong>
+          {legalDetails.emailProvider};
+        </li>
+        <li>
+          <strong>Outros prestadores técnicos:</strong>
+          {legalDetails.otherProcessors};
+        </li>
+        <li>
+          consultores jurídicos, contabilísticos ou de segurança, sujeitos a
+          confidencialidade e apenas quando necessário, e o suporte da Hostinger
+          em situações técnicas graves que exijam intervenção;
+        </li>
+        <li>
+          autoridades, tribunais ou terceiros quando exista obrigação legal,
+          ordem válida ou necessidade de declarar, exercer ou defender direitos.
+        </li>
+      </ul>
+      <p>
+        A autenticação, a base de dados e o envio de correio eletrónico utilizam
+        software Appwrite e Mailcow operado pelo responsável no mesmo VPS em
+        França. Os respetivos autores não recebem dados apenas por esse software
+        ser utilizado. O acesso administrativo regular pertence unicamente ao
+        responsável e é protegido por autenticação multifator ou passkeys. Os
+        prestadores que tratem dados por nossa conta ficam vinculados por
+        contrato, instruções documentadas, confidencialidade, segurança e regras
+        sobre eliminação ou devolução dos dados.
+      </p>
+      <p>
+        Não vendemos dados pessoais nem os partilhamos para publicidade
+        comportamental de terceiros.
+      </p>
+    </section>
+
+    <section id="transferencias" aria-labelledby="transferencias-title">
+      <h2 id="transferencias-title">
+        9. Localização e transferências internacionais
+      </h2>
+      <p>
+        O servidor principal está situado em <strong>França</strong> e as cópias de
+        segurança geridas pela Hostinger são armazenadas separadamente nos
+        <strong>Países Baixos</strong>. Estes países e Portugal pertencem ao
+        EEE, pelo que estas localizações não constituem, por si mesmas,
+        transferências para países terceiros ao abrigo do capítulo V do RGPD.
+      </p>
+      <p>
+        Todo o tráfego público passa pela rede global da Cloudflare, uma empresa
+        estabelecida nos Estados Unidos da América. A Cloudflare pode tratar
+        endereços IP, pedidos e dados de segurança em centros de dados e equipas
+        situados fora do EEE. Estas transferências são abrangidas, conforme
+        aplicável, pelo Quadro de Privacidade de Dados UE-EUA e pelas cláusulas
+        contratuais-tipo da Comissão Europeia previstas no acordo de tratamento
+        de dados da Cloudflare.
+      </p>
+      <p>
+        A Hostinger está estabelecida no Chipre e pode recorrer a entidades do
+        seu grupo ou apoio técnico noutros países. Quando exista uma
+        transferência para fora do EEE, são exigidas uma decisão de adequação ou
+        garantias apropriadas, como cláusulas contratuais-tipo e medidas
+        suplementares quando necessárias. Pode pedir uma indicação das garantias
+        através do contacto de privacidade.
+      </p>
+    </section>
+
+    <section id="conservacao" aria-labelledby="conservacao-title">
+      <h2 id="conservacao-title">10. Conservação</h2>
+      <p>
+        Aplicamos os prazos seguintes, sujeitos a conservação mais longa quando
+        necessária para obrigação legal, investigação de abuso, litígio ou
+        defesa de direitos:
+      </p>
+      <div class="legal-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dados</th>
+              <th>Prazo ou critério</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Conta e perfil</td>
+              <td>
+                Enquanto a conta estiver ativa. Após desativação, acesso
+                bloqueado e eliminação ou anonimização dos sistemas ativos no
+                prazo máximo de 30 dias, salvo fundamento de conservação
+              </td>
+            </tr>
+            <tr>
+              <td>Sessões, tokens e desafios temporários</td>
+              <td>
+                Até terminarem, expirarem ou serem substituídos, segundo a
+                configuração de segurança
+              </td>
+            </tr>
+            <tr>
+              <td>Classificações e conteúdo</td>
+              <td>
+                Enquanto estiverem publicados ou forem necessários ao Serviço;
+                após apagamento da conta, eliminados ou dissociados da conta no
+                prazo máximo de 30 dias, ponderando liberdade de expressão,
+                direitos de terceiros e obrigações legais
+              </td>
+            </tr>
+            <tr>
+              <td>Registos técnicos e de segurança</td>
+              <td>
+                Até 12 meses, salvo incidente que justifique conservação durante
+                a respetiva investigação
+              </td>
+            </tr>
+            <tr>
+              <td>Denúncias e decisões de moderação</td>
+              <td>
+                Até 6 meses após decisão final; por mais tempo apenas se
+                necessário para abuso reiterado, obrigação ou processo
+              </td>
+            </tr>
+            <tr>
+              <td>Pedidos de suporte e privacidade</td>
+              <td>
+                Até 24 meses após encerramento, mantendo prova mínima durante o
+                prazo necessário para demonstrar o cumprimento legal
+              </td>
+            </tr>
+            <tr>
+              <td>Consentimentos e oposições a comunicações</td>
+              <td>
+                Enquanto vigorar o consentimento e, depois, a prova mínima pelo
+                prazo de prescrição aplicável; listas de supressão enquanto
+                necessárias para respeitar a oposição
+              </td>
+            </tr>
+            <tr>
+              <td>Cópias de segurança</td>
+              <td>
+                Duas versões semanais em rotação. Uma versão nova substitui a
+                mais antiga, pelo que dados apagados podem subsistir normalmente
+                até duas rotações semanais. As cópias ficam separadas e só são
+                repostas quando necessário para recuperação
+              </td>
+            </tr>
+            <tr>
+              <td>Diretório de titulares de cargos públicos</td>
+              <td>
+                Registos atuais enquanto a pessoa exercer a função. Registos
+                históricos podem ser mantidos para fins de arquivo e informação,
+                claramente identificados como históricos, sujeitos a revisão,
+                atualização e direitos aplicáveis. Titulares históricos não
+                podem receber novas classificações
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        A opção «Eliminar conta», quando disponibilizada, bloqueia o acesso e
+        inicia o processo de apagamento ou anonimização acima. Não significa
+        apagamento instantâneo de cópias de segurança ou registos legalmente
+        conservados. Enquanto essa função não estiver disponível, um pedido de
+        apagamento deve ser enviado para {legalDetails.legalEmail}.
+      </p>
+    </section>
+
+    <section id="seguranca" aria-labelledby="seguranca-title">
+      <h2 id="seguranca-title">11. Segurança</h2>
+      <p>
+        Aplicamos medidas técnicas e organizativas adequadas ao risco, incluindo
+        comunicação cifrada, controlo de acessos, palavras-passe protegidas com
+        Argon2, autenticação multifator ou passkeys no acesso administrativo,
+        autenticação multifator opcional para utilizadores, gestão de sessões,
+        atualizações, cópias de segurança e registos de segurança. O acesso
+        administrativo regular é limitado ao responsável; o suporte da Hostinger
+        apenas pode intervir quando uma ocorrência técnica grave o exija.
+      </p>
+      <p>
+        Nenhum sistema é absolutamente seguro. Em caso de violação de dados
+        pessoais, avaliaremos o risco, documentaremos o incidente e
+        notificaremos a CNPD e os titulares afetados nos prazos e situações
+        exigidos pelos artigos 33.º e 34.º do RGPD.
+      </p>
+    </section>
+
+    <section id="direitos" aria-labelledby="direitos-title">
+      <h2 id="direitos-title">12. Direitos dos titulares</h2>
+      <p>Nos termos aplicáveis, o titular pode:</p>
+      <ul>
+        <li>
+          obter confirmação e <strong>acesso</strong> aos seus dados e a uma cópia;
+        </li>
+        <li>
+          pedir a <strong>retificação</strong> de dados inexatos ou incompletos;
+        </li>
+        <li>
+          pedir o <strong>apagamento</strong> quando se verifiquem os requisitos legais;
+        </li>
+        <li>
+          pedir a <strong>limitação</strong> do tratamento;
+        </li>
+        <li>
+          receber os dados que forneceu em formato estruturado, de uso corrente
+          e leitura automática e pedir a respetiva <strong>portabilidade</strong
+          >, quando o tratamento automatizado se baseie em consentimento ou
+          contrato;
+        </li>
+        <li>
+          <strong>opor-se</strong>, por motivos relacionados com a sua situação,
+          a tratamentos baseados em interesse legítimo;
+        </li>
+        <li>
+          opor-se a qualquer momento a <strong>marketing direto</strong>, sem
+          necessidade de justificação;
+        </li>
+        <li>
+          <strong>retirar o consentimento</strong> a qualquer momento, sem afetar
+          a licitude do tratamento anterior;
+        </li>
+        <li>
+          não ficar sujeito a uma decisão exclusivamente automatizada que
+          produza efeitos jurídicos ou o afete significativamente, nos termos do
+          artigo 22.º do RGPD;
+        </li>
+        <li>
+          apresentar uma <strong>reclamação</strong> à autoridade de controlo e recorrer
+          aos tribunais.
+        </li>
+      </ul>
+      <p>
+        Estes direitos não são absolutos. Por exemplo, um pedido de apagamento
+        pode ser limitado por obrigação legal, liberdade de expressão e
+        informação, interesse público ou necessidade de defender direitos.
+        Explicaremos qualquer recusa total ou parcial.
+      </p>
+    </section>
+
+    <section id="exercicio" aria-labelledby="exercicio-title">
+      <h2 id="exercicio-title">13. Como exercer os direitos</h2>
+      <p>
+        Envia o pedido para {legalDetails.legalEmail}, identificando o direito e
+        a conta ou dados em causa. Não é necessário justificar o pedido, salvo
+        quando a lei o exija para um direito específico.
+      </p>
+      <p>
+        Podemos pedir informação adicional estritamente necessária para
+        confirmar a identidade, sobretudo se o pedido vier de um endereço
+        diferente do associado à conta. Não pediremos cópia integral de um
+        documento de identificação quando existir alternativa menos intrusiva.
+      </p>
+      <p>
+        Responderemos sem demora injustificada e, em regra, no prazo de um mês.
+        O prazo pode ser prorrogado por dois meses em pedidos complexos ou
+        numerosos, com informação no primeiro mês. O exercício é gratuito,
+        exceto nos casos manifestamente infundados ou excessivos permitidos por
+        lei.
+      </p>
+      <p>
+        Também pode apresentar reclamação através do formulário da{" "}
+        <a
+          href="https://www.cnpd.pt/cidadaos/participacoes/"
+          target="_blank"
+          rel="noreferrer">Comissão Nacional de Proteção de Dados (CNPD)</a
+        >, com sede na Av. D. Carlos I, 134, 1.º, 1200-651 Lisboa. Sugerimos que
+        nos contacte primeiro para tentarmos resolver a questão, sem que isso
+        limite o direito de reclamar.
+      </p>
+    </section>
+
+    <section id="menores" aria-labelledby="menores-title">
+      <h2 id="menores-title">14. Crianças e jovens</h2>
+      <p>
+        Não permitimos contas de menores de 13 anos. Em Portugal, o tratamento
+        baseado em consentimento para oferta direta de serviços da sociedade da
+        informação pode ser autorizado pelo próprio menor a partir dos 13 anos.
+        Isso não elimina outras regras sobre capacidade jurídica e
+        responsabilidades parentais.
+      </p>
+      <p>
+        Utilizadores entre 13 e 17 anos devem obter autorização do seu
+        representante legal quando necessária. Usamos linguagem acessível,
+        limitamos os dados pedidos e não fazemos publicidade baseada em
+        perfilagem. Um representante que considere terem sido tratados dados de
+        uma criança em desconformidade pode contactar {legalDetails.legalEmail}.
+      </p>
+    </section>
+
+    <section id="automatizacao" aria-labelledby="automatizacao-title">
+      <h2 id="automatizacao-title">15. Decisões automatizadas e perfis</h2>
+      <p>
+        Não tomamos decisões exclusivamente automatizadas que produzam efeitos
+        jurídicos ou afetem significativamente os utilizadores. Atualmente, a
+        moderação é humana. No futuro poderão ser usados sinais técnicos para
+        assinalar tentativas de acesso, spam ou manipulação, mas qualquer
+        restrição material continuará sujeita a intervenção humana e poderá ser
+        contestada. Esta Política será atualizada antes da introdução desse
+        sistema. Não criamos perfis para publicidade.
+      </p>
+    </section>
+
+    <section id="alteracoes" aria-labelledby="alteracoes-title">
+      <h2 id="alteracoes-title">16. Alterações a esta Política</h2>
+      <p>
+        Atualizaremos esta Política quando mudarem as finalidades, tecnologias,
+        fornecedores ou exigências legais. A data no início identifica a versão
+        atual. Alterações materiais serão comunicadas por meio adequado antes de
+        produzirem efeitos quando isso seja possível e, se uma nova finalidade
+        exigir consentimento, este será pedido separadamente. Versões anteriores
+        serão disponibilizadas mediante pedido.
+      </p>
+    </section>
+
+    <section id="contacto" aria-labelledby="contacto-title">
+      <h2 id="contacto-title">17. Contacto</h2>
+      <p>
+        Para questões sobre esta Política, tratamento de dados pessoais ou
+        exercício de direitos, contacta{" "}
+        <a href={`mailto:${legalDetails.legalEmail}`}>
+          {legalDetails.legalEmail}
+        </a>.
+      </p>
+    </section>
+  </LegalPage>
+</MainLayout>

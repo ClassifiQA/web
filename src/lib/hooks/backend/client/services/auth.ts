@@ -5,6 +5,7 @@ import {
   type UserPreferences,
   useAuthStore,
 } from "@/lib/store/auth"
+import { LEGAL_VERSION } from "@/config/legal"
 import { notify, parseError } from "@/lib/utils"
 import {
   AppwriteException,
@@ -202,6 +203,18 @@ export const useClientAuth = () => {
 
       // validate session
       if (!session) return Error("failed to sign in after sign up")
+
+      // retain evidence of the terms accepted during registration
+      const currentPreferences = await auth.getPrefs<UserPreferences>()
+      await auth.updatePrefs<UserPreferences>({
+        prefs: mergePreferences(currentPreferences, {
+          legal: {
+            termsVersion: LEGAL_VERSION,
+            termsAcceptedAt: createdAccount.$createdAt,
+            privacyVersionAcknowledged: LEGAL_VERSION,
+          },
+        }),
+      })
 
       // set current user
       const currentUser = await auth.get<UserPreferences>()

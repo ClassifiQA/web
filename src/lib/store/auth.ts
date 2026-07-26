@@ -3,8 +3,6 @@ import { create } from "zustand"
 
 export type NotificationPreferences = {
   replies: boolean
-  weekly: boolean
-  product: boolean
   security: boolean
   browser: boolean
 }
@@ -16,6 +14,11 @@ export type UserPreferences = {
     school?: string
   }
   notifications?: Partial<NotificationPreferences>
+  legal?: {
+    termsVersion?: string
+    termsAcceptedAt?: string
+    privacyVersionAcknowledged?: string
+  }
 }
 
 export type AuthUser = Models.User<UserPreferences>
