@@ -26,16 +26,13 @@ export const MemberParty = ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger
-          closeOnClick={false}
-          render={
-            <span
-              aria-label={`${abbreviation}: ${name}`}
-              className={cn("inline-flex", className)}
-              tabIndex={0}
-            />
-          }>
-          {abbreviation}
+        <TooltipTrigger asChild>
+          <span
+            aria-label={`${abbreviation}: ${name}`}
+            className={cn("inline-flex", className)}
+            tabIndex={0}>
+            {abbreviation}
+          </span>
         </TooltipTrigger>
         <TooltipContent side="right" sideOffset={6} className="text-xs">
           {name}

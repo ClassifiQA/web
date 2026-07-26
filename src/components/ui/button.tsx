@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "@radix-ui/react-slot"
+import { Slot as SlotPrimitive } from "radix-ui"
 import {
   followButtonHref,
   hasHrefHeaders,
@@ -101,7 +101,7 @@ function Button({
 
   const useAsChild =
     asChild && !href && leadingRendered == null && trailingRendered == null
-  const Comp = useAsChild ? Slot : "button"
+  const Comp = useAsChild ? SlotPrimitive.Root : "button"
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     onClick?.(e)
