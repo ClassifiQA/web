@@ -8,7 +8,7 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules .astro dist && bun install",
-    "dev": "portless classifiqa astro dev",
+    "dev": "portless classifiqa astro dev --host",
     "build": "astro build",
     "start": "bun ./dist/server/entry.mjs",
     "preview": "bun run build && astro preview",
