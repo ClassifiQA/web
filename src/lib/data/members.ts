@@ -1,7 +1,16 @@
-export const CLASSIFIQA_DATABASE_ID = "6a6272e50037ef590f10"
+export const CLASSIFIQA_DATABASE_ID = import.meta.env.PUBLIC_DB_ID
 export const MEMBERS_TABLE_ID = "govt-members"
+export const GRADES_TABLE_ID = "grades"
+export const GRADE_OWNERSHIP_FUNCTION_ID = "grade-ownership"
 
 export type MemberSource = "governo-portugal" | "parlamento-ar"
+
+export type MemberGrade = {
+  $id: string
+  $createdAt: string
+  grade: number
+  comment?: string | null
+}
 
 export type Member = {
   $id: string
@@ -16,6 +25,7 @@ export type Member = {
   source: MemberSource
   external_id: string
   source_updated_at?: string | null
+  grades: MemberGrade[]
 }
 
 export const memberSourceLabel = (source: MemberSource) =>

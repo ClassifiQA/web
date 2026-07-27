@@ -16,5 +16,24 @@
     "commands": "bun install --frozen-lockfile",
     "ignore": "node_modules\n.env\ncoverage",
     "path": "../functions/sync-members"
+  },
+  {
+    "$id": "grade-ownership",
+    "name": "grade-ownership",
+    "enabled": true,
+    "logging": true,
+    "runtime": "bun-1.3",
+    "buildSpecification": "s-1vcpu-512mb",
+    "runtimeSpecification": "s-1vcpu-512mb",
+    "deploymentRetention": 7,
+    "execute": ["users"],
+    "scopes": ["rows.read", "rows.write"],
+    "events": [],
+    "schedule": "",
+    "timeout": 15,
+    "entrypoint": "src/main.js",
+    "commands": "bun install --frozen-lockfile",
+    "ignore": "node_modules\n.env\ncoverage",
+    "path": "../functions/grade-ownership"
   }
 ]

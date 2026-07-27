@@ -2,11 +2,16 @@ import {
   CLASSIFIQA_DATABASE_ID,
   MEMBERS_TABLE_ID,
   type Member,
+  type MemberGrade,
 } from "@/lib/data/members"
 import { createServerAppwrite } from "@/lib/hooks/backend/server/appwrite"
 import { AppwriteException, Query, type Models } from "node-appwrite"
 
-type MemberRow = Models.Row & Omit<Member, keyof Models.Row>
+type MemberGradeRow = Models.Row & Omit<MemberGrade, keyof Models.Row>
+type MemberRow = Models.Row &
+  Omit<Member, keyof Models.Row | "grades"> & {
+    grades?: MemberGradeRow[]
+  }
 
 const MEMBER_SELECTION = [
   "$id",
@@ -21,6 +26,10 @@ const MEMBER_SELECTION = [
   "source",
   "external_id",
   "source_updated_at",
+  "grades.$id",
+  "grades.$createdAt",
+  "grades.grade",
+  "grades.comment",
 ]
 
 const PAGE_SIZE = 100
@@ -38,6 +47,12 @@ const toMember = (row: MemberRow): Member => ({
   source: row.source,
   external_id: row.external_id,
   source_updated_at: row.source_updated_at ?? null,
+  grades: (row.grades ?? []).map((grade) => ({
+    $id: grade.$id,
+    $createdAt: grade.$createdAt,
+    grade: grade.grade,
+    comment: grade.comment ?? null,
+  })),
 })
 
 export const createServerMembers = () => {
