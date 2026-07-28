@@ -1,0 +1,7 @@
+# environment variables
+*.env.* filter=git-crypt diff=git-crypt
+*.env filter=git-crypt diff=git-crypt
+
+# keys
+*.key* filter=git-crypt diff=git-crypt
+*.pem* filter=git-crypt diff=git-crypt
