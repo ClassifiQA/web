@@ -164,22 +164,26 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
     ? "A verificar…"
     : hasMyGrade
       ? "Ver a minha nota"
-      : "Dar nota"
+      : currentUser && !currentUser.emailVerification
+        ? "Confirmar e-mail para dar nota"
+        : "Dar nota"
   const gradeCountLabel =
     allGrades.length === 1 ? "1 vez" : `${allGrades.length} vezes`
 
   const handleGradeSubmit = async ({
     grade,
     comment,
+    website,
   }: {
     grade: number
     comment?: string
+    website?: string
   }) => {
     if (!memberId || !myGradeLookupKey) {
       return Error("Inicia sessão para dar nota.")
     }
 
-    const result = await submitGrade({ memberId, grade, comment })
+    const result = await submitGrade({ memberId, grade, comment, website })
     if (result instanceof Error) return result
 
     setMyGradeLookup({
@@ -266,7 +270,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
         </section>
 
         <aside className="border-t bg-muted/20 p-4 sm:p-8 lg:border-t-0 lg:border-l lg:p-10">
-          <MemberGradeActivity grades={allGrades} />
+          <MemberGradeActivity grades={allGrades} memberId={member.$id} />
         </aside>
       </article>
 
@@ -275,6 +279,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
         memberName={member.name}
         currentGrade={currentGrade}
         isAuthenticated={Boolean(currentUser)}
+        isEmailVerified={Boolean(currentUser?.emailVerification)}
         onOpenChange={setGradeDialogOpen}
         onSubmit={handleGradeSubmit}
       />

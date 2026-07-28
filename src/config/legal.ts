@@ -1,9 +1,11 @@
 /** Public legal contact and operational disclosures used by the legal pages. */
-export const LEGAL_VERSION = "2026-07-26"
+export const LEGAL_VERSION = "2026-07-28"
 
 export const legalDetails = {
-  updatedAt: "26 de julho de 2026",
+  updatedAt: "28 de julho de 2026",
   legalEmail: "legal@classifiqa.pt",
+  workPhone: "[REDACTED]",
+  workPhoneHref: "tel:[REDACTED]",
   hostingProvider:
     "Hostinger International Limited, 61 Lordou Vironos Street, 6023 Larnaca, Chipre",
   backupDetails:

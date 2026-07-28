@@ -247,7 +247,7 @@ export const ProfilePage = () => {
     completeMfaActionChallenge,
     confirmMfaSetup,
     createMfaChallenge,
-    deactivateAccount,
+    deleteAccount,
     disableMfa,
     endOtherSessions,
     endSession,
@@ -705,12 +705,12 @@ export const ProfilePage = () => {
     setNotificationsError(null)
   }
 
-  // deactivate account
+  // delete account and linked participation data
   const confirmDeactivation = async () => {
     setDeactivateError(null)
     setIsDeactivating(true)
 
-    const result = await deactivateAccount()
+    const result = await deleteAccount()
 
     if (result instanceof Error) {
       setDeactivateError(result.message)
@@ -1225,9 +1225,9 @@ const PersonalPanel = ({
         <div className="flex items-start gap-3">
           <CircleAlert className="mt-0.5 size-4 text-destructive" aria-hidden />
           <div>
-            <h3 className="text-sm font-semibold">Desativar conta</h3>
+            <h3 className="text-sm font-semibold">Eliminar conta</h3>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              Bloqueia permanentemente o acesso a esta conta.
+              Elimina a conta, as classificações e os comentários associados.
             </p>
           </div>
         </div>
@@ -1235,7 +1235,7 @@ const PersonalPanel = ({
           variant="danger"
           className="w-full shrink-0 sm:w-auto"
           onClick={onDeactivate}>
-          Desativar conta
+          Eliminar conta
         </ProfileButton>
       </div>
     </section>
@@ -2273,17 +2273,18 @@ const DeactivateAccountDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent showCloseButton={!isSubmitting}>
         <DialogHeader>
-          <DialogTitle>Desativar conta</DialogTitle>
+          <DialogTitle>Eliminar conta</DialogTitle>
           <DialogDescription>
-            Esta ação bloqueia permanentemente a conta e termina o teu acesso.
-            Os dados associados não são eliminados automaticamente.
+            Esta ação elimina permanentemente a conta, as classificações e os
+            comentários associados. As denúncias são anonimizadas e conservadas
+            apenas segundo os prazos legais aplicáveis.
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4">
           <label className="grid gap-1.5">
             <span className="text-sm font-medium">
-              Escreve <strong>DESATIVAR</strong> para confirmar
+              Escreve <strong>ELIMINAR</strong> para confirmar
             </span>
             <input
               value={confirmation}
@@ -2309,9 +2310,9 @@ const DeactivateAccountDialog = ({
             </ProfileButton>
             <ProfileButton
               variant="danger"
-              disabled={confirmation !== "DESATIVAR" || isSubmitting}
+              disabled={confirmation !== "ELIMINAR" || isSubmitting}
               onClick={onConfirm}>
-              {isSubmitting ? "A desativar…" : "Desativar permanentemente"}
+              {isSubmitting ? "A eliminar…" : "Eliminar permanentemente"}
             </ProfileButton>
           </div>
         </div>

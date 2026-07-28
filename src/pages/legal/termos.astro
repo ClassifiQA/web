@@ -62,7 +62,10 @@ import MainLayout from "@/layouts/main.astro"
         endereço{" "}
         <a href={`mailto:${legalDetails.legalEmail}`}>
           {legalDetails.legalEmail}
-        </a>. Este endereço constitui o ponto de contacto eletrónico permanente
+        </a>{" "}
+        ou do número{" "}
+        <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a>. O
+        endereço de e-mail constitui o ponto de contacto eletrónico permanente
         do ClassifiQA.
       </p>
       <p>
@@ -314,8 +317,14 @@ import MainLayout from "@/layouts/main.astro"
       <h2 id="denuncia-title">10. Denúncia de conteúdo ilegal</h2>
       <p>
         Qualquer pessoa ou entidade pode denunciar um elemento específico que
-        considere ilegal através de {legalDetails.legalEmail}. A denúncia deve
-        incluir:
+        considere ilegal através do <a href="/denunciar"
+          >formulário estruturado de denúncia</a
+        >. O formulário utiliza a identidade e o e-mail confirmado da conta para
+        reduzir abuso e comunicar a decisão. Quem não tenha conta ou esteja
+        abrangido por uma exceção legal de identificação pode utilizar{" "}
+        <a href={`mailto:${legalDetails.legalEmail}`}>
+          {legalDetails.legalEmail}
+        </a>. A denúncia deve incluir:
       </p>
       <ol>
         <li>
@@ -418,12 +427,15 @@ import MainLayout from "@/layouts/main.astro"
     </section>
 
     <section id="cessacao" aria-labelledby="cessacao-title">
-      <h2 id="cessacao-title">15. Desativação e cessação</h2>
+      <h2 id="cessacao-title">15. Eliminação e cessação</h2>
       <p>
-        O utilizador pode deixar de usar o Serviço e desativar a conta nas
-        definições. A desativação bloqueia o acesso, mas não equivale ao
-        apagamento imediato de todos os dados. O pedido de apagamento pode ser
-        feito nos termos da Política de Privacidade.
+        O utilizador pode deixar de usar o Serviço e eliminar a conta nas
+        definições. A eliminação apaga a conta, as classificações, os
+        comentários e os registos internos de titularidade associados. As
+        denúncias submetidas são dissociadas da conta e podem ser conservadas
+        pelo prazo de moderação aplicável. Cópias de segurança temporárias e
+        registos cuja conservação seja legalmente necessária expiram ou são
+        tratados nos termos da Política de Privacidade.
       </p>
       <p>
         Podemos suspender ou cessar o acesso quando exista violação destes
@@ -516,7 +528,9 @@ import MainLayout from "@/layouts/main.astro"
         moderação, devem ser enviadas para{" "}
         <a href={`mailto:${legalDetails.legalEmail}`}>
           {legalDetails.legalEmail}
-        </a>.
+        </a>. Para contacto telefónico em horário laboral, está disponível o
+        número <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a
+        >.
       </p>
     </section>
   </LegalPage>

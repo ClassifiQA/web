@@ -2,6 +2,8 @@ export const CLASSIFIQA_DATABASE_ID = import.meta.env.PUBLIC_DB_ID
 export const MEMBERS_TABLE_ID = "govt-members"
 export const GRADES_TABLE_ID = "grades"
 export const GRADE_OWNERSHIP_FUNCTION_ID = "grade-ownership"
+export const CONTENT_REPORTS_FUNCTION_ID = "content-reports"
+export const ACCOUNT_ERASURE_FUNCTION_ID = "account-erasure"
 
 export type MemberSource = "governo-portugal" | "parlamento-ar"
 
