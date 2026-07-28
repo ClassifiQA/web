@@ -150,6 +150,9 @@ export default async ({ req, res, error }) => {
       201
     )
   } catch (cause) {
+    if (cause instanceof AppwriteException && cause.type === "user_not_found") {
+      return res.json({ error: "Authentication required." }, 401)
+    }
     if (cause instanceof AppwriteException && cause.code === 409) {
       return res.json(
         {

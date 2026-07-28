@@ -122,6 +122,9 @@ export default async ({ req, res, error }) => {
       anonymizedReports,
     })
   } catch (cause) {
+    if (cause instanceof AppwriteException && cause.type === "user_not_found") {
+      return res.json({ error: "Authentication required." }, 401)
+    }
     error(
       cause instanceof Error
         ? `Account erasure failed: ${cause.message}`
