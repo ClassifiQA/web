@@ -6,6 +6,7 @@ import {
   useAuthStore,
 } from "@/lib/store/auth"
 import { LEGAL_VERSION } from "@/config/legal"
+import { ACCOUNT_ERASURE_FUNCTION_ID } from "@/lib/data/members"
 import { notify, parseError } from "@/lib/utils"
 import {
   AppwriteException,
@@ -114,7 +115,7 @@ const getMfaFactorForRequest = (factor: AuthenticationFactor) => {
  */
 export const useClientAuth = () => {
   // auth service
-  const { auth, avatars } = useAppwrite()
+  const { auth, avatars, functions } = useAppwrite()
   const { setAuthError, setCurrentUser, setIsLoading } = useAuthStore()
 
   // discard the current session without surfacing cleanup errors
@@ -1004,14 +1005,37 @@ export const useClientAuth = () => {
   )
 
   /**
-   * permanently blocks the current account
+   * permanently erases the current account and its linked participation data
    */
-  const deactivateAccount = async () => {
+  const deleteAccount = async () => {
     try {
-      const result = await auth.updateStatus<UserPreferences>()
+      const execution = await functions.createExecution({
+        functionId: ACCOUNT_ERASURE_FUNCTION_ID,
+        body: JSON.stringify({ confirmation: "ELIMINAR" }),
+      })
+      let response: Record<string, unknown> = {}
+      try {
+        response = JSON.parse(execution.responseBody) as Record<string, unknown>
+      } catch {
+        // The status check below handles malformed Function responses.
+      }
+      if (
+        execution.responseStatusCode < 200 ||
+        execution.responseStatusCode >= 300
+      ) {
+        throw new Error(
+          typeof response.error === "string"
+            ? response.error
+            : "Não foi possível eliminar a conta."
+        )
+      }
+      if (response.deleted !== true) {
+        throw new Error("A eliminação da conta não foi confirmada.")
+      }
+      currentUserRequest = null
       setCurrentUser(null)
       setIsLoading(false)
-      return result
+      return true
     } catch (error) {
       return Error(parseError(error))
     }
@@ -1044,7 +1068,7 @@ export const useClientAuth = () => {
     regenerateMfaRecoveryCodes,
     verify,
     confirmEmailVerification,
-    deactivateAccount,
+    deleteAccount,
   }
 
   return clientAuth

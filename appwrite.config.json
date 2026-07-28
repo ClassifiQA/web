@@ -2,5 +2,389 @@
   "projectId": "classifiqa",
   "includes": {
     "functions": "appwrite/functions.json"
-  }
+  },
+  "tablesDB": [
+    {
+      "$id": "6a6272e50037ef590f10",
+      "name": "main",
+      "enabled": true
+    }
+  ],
+  "tables": [
+    {
+      "$id": "grades",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "6a6272e50037ef590f10",
+      "name": "grades",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "member",
+          "type": "relationship",
+          "required": false,
+          "array": false,
+          "relatedTable": "govt-members",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "grades",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "comment",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "grade",
+          "type": "double",
+          "required": true,
+          "array": false,
+          "default": null,
+          "min": 0,
+          "max": 20
+        }
+      ],
+      "indexes": [
+        {
+          "key": "index_grade",
+          "type": "key",
+          "status": "available",
+          "columns": ["grade"],
+          "orders": ["asc"]
+        }
+      ]
+    },
+    {
+      "$id": "govt-members",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "6a6272e50037ef590f10",
+      "name": "govt-members",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "grades",
+          "type": "relationship",
+          "required": false,
+          "array": false,
+          "relatedTable": "grades",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "member",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "name",
+          "type": "text",
+          "required": true,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "position",
+          "type": "text",
+          "required": true,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "party",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "image_url",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "default": null,
+          "format": "url"
+        },
+        {
+          "key": "active",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": true
+        },
+        {
+          "key": "source",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "external_id",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 128,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "source_updated_at",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "default": null,
+          "format": ""
+        },
+        {
+          "key": "party_name",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "index_name",
+          "type": "fulltext",
+          "status": "available",
+          "columns": ["name"],
+          "orders": ["asc"]
+        },
+        {
+          "key": "index_position",
+          "type": "fulltext",
+          "status": "available",
+          "columns": ["position"],
+          "orders": ["asc"]
+        },
+        {
+          "key": "index_party",
+          "type": "key",
+          "status": "available",
+          "columns": ["party"],
+          "orders": ["asc"]
+        },
+        {
+          "key": "index_active",
+          "type": "key",
+          "status": "available",
+          "columns": ["active"],
+          "orders": ["asc"]
+        },
+        {
+          "key": "unique_source_external_id",
+          "type": "unique",
+          "status": "available",
+          "columns": ["source", "external_id"],
+          "orders": ["ASC", "ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "grade-ownerships",
+      "$permissions": [],
+      "databaseId": "6a6272e50037ef590f10",
+      "name": "grade-ownerships",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "user_id",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "member_id",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "grade_id",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "unique_user_member",
+          "type": "unique",
+          "status": "available",
+          "columns": ["user_id", "member_id"],
+          "orders": ["ASC", "ASC"]
+        },
+        {
+          "key": "unique_grade",
+          "type": "unique",
+          "status": "available",
+          "columns": ["grade_id"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "content-reports",
+      "$permissions": [],
+      "databaseId": "6a6272e50037ef590f10",
+      "name": "content-reports",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "reporter_user_id",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "reporter_name",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "reporter_email",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 320,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "content_type",
+          "type": "enum",
+          "required": true,
+          "array": false,
+          "elements": ["comment", "member", "account", "other"],
+          "default": null
+        },
+        {
+          "key": "content_url",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 2048,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "legal_reason",
+          "type": "text",
+          "required": true,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "location_details",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "good_faith",
+          "type": "boolean",
+          "required": true,
+          "array": false,
+          "default": null
+        },
+        {
+          "key": "dedupe_key",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "required": true,
+          "array": false,
+          "elements": [
+            "received",
+            "reviewing",
+            "actioned",
+            "rejected",
+            "appealed",
+            "closed"
+          ],
+          "default": "received"
+        },
+        {
+          "key": "decision",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "decided_at",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "default": null,
+          "format": ""
+        }
+      ],
+      "indexes": [
+        {
+          "key": "index_reporter",
+          "type": "key",
+          "status": "available",
+          "columns": ["reporter_user_id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "unique_report",
+          "type": "unique",
+          "status": "available",
+          "columns": ["dedupe_key"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "index_status",
+          "type": "key",
+          "status": "available",
+          "columns": ["status"],
+          "orders": ["ASC"]
+        }
+      ]
+    }
+  ]
 }

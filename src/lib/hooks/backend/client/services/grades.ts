@@ -23,6 +23,7 @@ type SubmitGradeInput = {
   memberId: string
   grade: number
   comment?: string
+  website?: string
 }
 
 type RealtimeGrade = Models.Row &
@@ -94,13 +95,14 @@ export const useClientGrades = () => {
   )
 
   const submitGrade = useCallback(
-    async ({ memberId, grade, comment }: SubmitGradeInput) => {
+    async ({ memberId, grade, comment, website }: SubmitGradeInput) => {
       try {
         const result = (await executeGradeFunction({
           action: "create",
           memberId,
           grade,
           comment,
+          website,
         })) as CurrentUserGradeResponse
 
         if (!result.hasGrade || !result.grade) {

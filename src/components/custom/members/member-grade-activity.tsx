@@ -1,5 +1,5 @@
 import type { MemberGrade } from "@/lib/data/members"
-import { Clock3, MessageCircle, ShieldCheck } from "lucide-react"
+import { Flag, Clock3, MessageCircle, ShieldCheck } from "lucide-react"
 
 const formatGradeDate = (value: string) => {
   const date = new Date(value)
@@ -20,7 +20,13 @@ const GradeTime = ({ grade }: { grade: MemberGrade }) => (
   </time>
 )
 
-export const MemberGradeActivity = ({ grades }: { grades: MemberGrade[] }) => {
+export const MemberGradeActivity = ({
+  grades,
+  memberId,
+}: {
+  grades: MemberGrade[]
+  memberId: string
+}) => {
   const orderedGrades = [...grades].sort(
     (a, b) =>
       new Date(b.$createdAt).getTime() - new Date(a.$createdAt).getTime()
@@ -46,6 +52,7 @@ export const MemberGradeActivity = ({ grades }: { grades: MemberGrade[] }) => {
           {comments.map((grade) => (
             <article
               key={grade.$id}
+              id={`comentario-${grade.$id}`}
               className="rounded-3xl border bg-background/70 p-4 sm:p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="rounded-full bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">
@@ -56,9 +63,19 @@ export const MemberGradeActivity = ({ grades }: { grades: MemberGrade[] }) => {
               <p className="mt-4 leading-relaxed wrap-break-word whitespace-pre-wrap">
                 {grade.comment}
               </p>
-              <div className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <ShieldCheck aria-hidden className="size-3.5 text-accent" />
-                Classificação anónima
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <ShieldCheck aria-hidden className="size-3.5 text-accent" />
+                  Classificação anónima
+                </span>
+                <a
+                  className="inline-flex items-center gap-1.5 font-medium hover:text-foreground hover:underline"
+                  href={`/denunciar?tipo=comment&url=${encodeURIComponent(
+                    `/classificacoes/${memberId}#comentario-${grade.$id}`
+                  )}`}>
+                  <Flag aria-hidden className="size-3.5" />
+                  Denunciar
+                </a>
               </div>
             </article>
           ))}

@@ -1,0 +1,32 @@
+---
+import { ContentReportForm } from "@/components/custom/legal/content-report-form"
+import MainLayout from "@/layouts/main.astro"
+---
+
+<MainLayout
+  title="Denunciar conteúdo | ClassifiQA"
+  description="Denuncia conteúdo potencialmente ilegal publicado no ClassifiQA.">
+  <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+    <div class="mx-auto grid w-full max-w-3xl gap-6 px-4 py-6 sm:px-6 sm:py-10">
+      <header>
+        <p class="text-sm font-semibold text-accent">Segurança e moderação</p>
+        <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
+          Denunciar conteúdo ilegal
+        </h1>
+        <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+          Identifica o conteúdo e explica porque o consideras ilegal. A denúncia
+          é guardada de forma privada, recebe uma referência e é analisada por
+          uma pessoa.
+        </p>
+      </header>
+
+      <ContentReportForm client:load />
+
+      <aside
+        class="rounded-3xl border bg-muted/30 p-5 text-sm leading-relaxed text-muted-foreground">
+        <strong class="text-foreground">Perigo imediato:</strong> esta via não substitui
+        os serviços de emergência nem uma participação às autoridades competentes.
+      </aside>
+    </div>
+  </div>
+</MainLayout>

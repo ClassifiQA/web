@@ -55,8 +55,11 @@ import MainLayout from "@/layouts/main.astro"
         responsável devem ser dirigidos a{" "}
         <a href={`mailto:${legalDetails.legalEmail}`}>
           {legalDetails.legalEmail}
-        </a>. Este endereço constitui o canal eletrónico permanente para
-        matérias de privacidade e proteção de dados.
+        </a>{" "}
+        ou, por telefone, para{" "}
+        <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a>. O
+        endereço de e-mail constitui o canal eletrónico permanente para matérias
+        de privacidade e proteção de dados.
       </p>
       <p>
         Os elementos de identificação legal não publicados serão comunicados
@@ -471,9 +474,10 @@ import MainLayout from "@/layouts/main.astro"
             <tr>
               <td>Conta e perfil</td>
               <td>
-                Enquanto a conta estiver ativa. Após desativação, acesso
-                bloqueado e eliminação ou anonimização dos sistemas ativos no
-                prazo máximo de 30 dias, salvo fundamento de conservação
+                Enquanto a conta estiver ativa. Após eliminação, apagamento ou
+                anonimização dos sistemas ativos, com cópias de segurança
+                temporárias a expirar no prazo máximo de 30 dias, salvo
+                fundamento de conservação
               </td>
             </tr>
             <tr>
@@ -544,11 +548,13 @@ import MainLayout from "@/layouts/main.astro"
         </table>
       </div>
       <p>
-        A opção «Eliminar conta», quando disponibilizada, bloqueia o acesso e
-        inicia o processo de apagamento ou anonimização acima. Não significa
-        apagamento instantâneo de cópias de segurança ou registos legalmente
-        conservados. Enquanto essa função não estiver disponível, um pedido de
-        apagamento deve ser enviado para {legalDetails.legalEmail}.
+        A opção «Eliminar conta» elimina a conta e, dos sistemas ativos, as
+        classificações, comentários e registos internos de titularidade
+        associados. As denúncias submetidas são dissociadas da conta e podem ser
+        conservadas pelo prazo de moderação aplicável. A eliminação não
+        significa apagamento instantâneo de cópias de segurança temporárias ou
+        registos legalmente conservados. Também pode ser enviado um pedido de
+        apagamento para {legalDetails.legalEmail}.
       </p>
     </section>
 
@@ -705,7 +711,8 @@ import MainLayout from "@/layouts/main.astro"
         exercício de direitos, contacta{" "}
         <a href={`mailto:${legalDetails.legalEmail}`}>
           {legalDetails.legalEmail}
-        </a>.
+        </a>. Também podes contactar o responsável através do número{" "}
+        <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a>.
       </p>
     </section>
   </LegalPage>

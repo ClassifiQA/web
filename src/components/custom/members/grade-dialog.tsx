@@ -9,10 +9,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import type { CurrentUserGrade } from "@/lib/hooks/backend/client/services/grades"
-import { ShieldCheck } from "lucide-react"
+import { MailCheck, ShieldCheck } from "lucide-react"
 import { useId, useState, type SubmitEvent } from "react"
 
 const MAX_COMMENT_LENGTH = 1000
+const URL_PATTERN =
+  /\b(?:https?:\/\/|www\.|[a-z0-9-]+\.(?:com|net|org|io|pt)(?:\/|\b))/iu
+const REPEATED_TEXT_PATTERN =
+  /(\S)\1{11,}|\b([\p{L}\p{N}]{2,})(?:[\s.,!?;:–—-]+\2){5,}\b/iu
 
 const formatGradeDate = (value: string) => {
   const date = new Date(value)
@@ -29,10 +33,12 @@ type GradeDialogProps = {
   memberName: string
   currentGrade: CurrentUserGrade | null
   isAuthenticated: boolean
+  isEmailVerified: boolean
   onOpenChange: (open: boolean) => void
   onSubmit: (input: {
     grade: number
     comment?: string
+    website?: string
   }) => Promise<true | Error>
 }
 
@@ -41,13 +47,16 @@ export const GradeDialog = ({
   memberName,
   currentGrade,
   isAuthenticated,
+  isEmailVerified,
   onOpenChange,
   onSubmit,
 }: GradeDialogProps) => {
   const gradeId = useId()
   const commentId = useId()
+  const websiteId = useId()
   const [grade, setGrade] = useState(10)
   const [comment, setComment] = useState("")
+  const [website, setWebsite] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -60,11 +69,23 @@ export const GradeDialog = ({
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError(null)
+
+    const normalizedComment = comment.trim()
+    if (URL_PATTERN.test(normalizedComment)) {
+      setError("Não são permitidas ligações nos comentários.")
+      return
+    }
+    if (REPEATED_TEXT_PATTERN.test(normalizedComment)) {
+      setError("Evita texto excessivamente repetitivo no comentário.")
+      return
+    }
+
     setIsSubmitting(true)
 
     const result = await onSubmit({
       grade,
-      comment: comment.trim() || undefined,
+      comment: normalizedComment || undefined,
+      website,
     })
 
     setIsSubmitting(false)
@@ -74,6 +95,7 @@ export const GradeDialog = ({
     }
 
     setComment("")
+    setWebsite("")
     onOpenChange(false)
   }
 
@@ -146,6 +168,34 @@ export const GradeDialog = ({
               </Button>
             </DialogFooter>
           </>
+        ) : !isEmailVerified ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>Confirma o teu e-mail</DialogTitle>
+              <DialogDescription>
+                A confirmação ajuda-nos a impedir classificações automáticas e
+                contas descartáveis.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex gap-3 rounded-3xl border bg-muted/40 p-4 text-sm text-muted-foreground">
+              <MailCheck
+                aria-hidden
+                className="mt-0.5 size-4 shrink-0 text-accent"
+              />
+              <p>
+                Confirma o endereço associado à tua conta no perfil e volta a
+                esta página para publicares a nota.
+              </p>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => onOpenChange(false)}>
+                Fechar
+              </Button>
+              <Button href="/perfil" onClick={() => onOpenChange(false)}>
+                Ir para o perfil
+              </Button>
+            </DialogFooter>
+          </>
         ) : (
           <>
             <DialogHeader>
@@ -156,6 +206,21 @@ export const GradeDialog = ({
             </DialogHeader>
 
             <form className="grid gap-5" onSubmit={handleSubmit}>
+              <div
+                aria-hidden="true"
+                className="absolute -left-[10000px] h-px w-px overflow-hidden">
+                <label htmlFor={websiteId}>Website</label>
+                <input
+                  id={websiteId}
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(event) => setWebsite(event.target.value)}
+                />
+              </div>
+
               <div className="grid justify-items-center gap-4 rounded-3xl border bg-muted/30 p-5">
                 <MemberGrade
                   grade={grade}
@@ -203,6 +268,10 @@ export const GradeDialog = ({
                 />
                 <span className="text-right text-xs text-muted-foreground">
                   {comment.length}/{MAX_COMMENT_LENGTH}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Não são permitidas ligações nem texto excessivamente
+                  repetitivo.
                 </span>
               </label>
 

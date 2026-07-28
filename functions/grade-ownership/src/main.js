@@ -1,10 +1,25 @@
-import { AppwriteException, Client, ID, Query, TablesDB } from "node-appwrite"
+import {
+  AppwriteException,
+  Client,
+  ID,
+  Query,
+  TablesDB,
+  Users,
+} from "node-appwrite"
+import {
+  DAILY_SUBMISSION_LIMIT,
+  createOwnershipRowId,
+  getCommentValidationError,
+  getRateLimit,
+  normalizeComment,
+} from "./anti-spam.js"
 
 const DATABASE_ID = "6a6272e50037ef590f10"
 const GRADES_TABLE_ID = "grades"
 const OWNERSHIP_TABLE_ID = "grade-ownerships"
+const MEMBERS_TABLE_ID = "govt-members"
 const APPWRITE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/
-const MAX_COMMENT_LENGTH = 1000
+const DAY_MS = 24 * 60 * 60 * 1000
 
 const createClient = () =>
   new Client()
@@ -42,7 +57,44 @@ const findCurrentGrade = async (tablesDB, userId, memberId) => {
   return toCurrentGrade(grade)
 }
 
-const createGrade = async ({ tablesDB, userId, memberId, grade, comment }) => {
+const listRecentSubmissionDates = async (tablesDB, userId, now) => {
+  const ownerships = await tablesDB.listRows({
+    databaseId: DATABASE_ID,
+    tableId: OWNERSHIP_TABLE_ID,
+    queries: [
+      Query.equal("user_id", userId),
+      Query.greaterThanEqual(
+        "$createdAt",
+        new Date(now - DAY_MS).toISOString()
+      ),
+      Query.orderDesc("$createdAt"),
+      Query.limit(DAILY_SUBMISSION_LIMIT),
+      Query.select(["$createdAt"]),
+    ],
+    total: false,
+  })
+
+  return ownerships.rows.map((ownership) => ownership.$createdAt)
+}
+
+const isActiveMember = async (tablesDB, memberId) => {
+  const member = await tablesDB.getRow({
+    databaseId: DATABASE_ID,
+    tableId: MEMBERS_TABLE_ID,
+    rowId: memberId,
+    queries: [Query.select(["active"])],
+  })
+  return member.active === true
+}
+
+const createGrade = async ({
+  tablesDB,
+  userId,
+  memberId,
+  grade,
+  comment,
+  now,
+}) => {
   const transaction = await tablesDB.createTransaction({ ttl: 60 })
   const gradeId = ID.unique()
 
@@ -54,7 +106,7 @@ const createGrade = async ({ tablesDB, userId, memberId, grade, comment }) => {
           action: "create",
           databaseId: DATABASE_ID,
           tableId: OWNERSHIP_TABLE_ID,
-          rowId: ID.unique(),
+          rowId: createOwnershipRowId(userId, now),
           data: {
             user_id: userId,
             member_id: memberId,
@@ -112,6 +164,8 @@ export default async ({ req, res, error }) => {
     return res.json({ error: "Authentication required." }, 401)
   }
 
+  let tablesDB
+
   try {
     const executionKey = req.headers["x-appwrite-key"]
     if (!executionKey) {
@@ -119,7 +173,7 @@ export default async ({ req, res, error }) => {
     }
 
     const serverClient = createClient().setKey(executionKey)
-    const tablesDB = new TablesDB(serverClient)
+    tablesDB = new TablesDB(serverClient)
     const action = req.bodyJson?.action ?? "get"
 
     if (action === "get") {
@@ -131,9 +185,37 @@ export default async ({ req, res, error }) => {
       return res.json({ error: "Invalid action." }, 400)
     }
 
+    const honeypot = req.bodyJson?.website
+    if (typeof honeypot === "string" && honeypot.trim()) {
+      return res.json({ error: "Pedido inválido." }, 400)
+    }
+
+    const users = new Users(serverClient)
+    const user = await users.get({ userId })
+    if (!user.status) {
+      return res.json({ error: "Esta conta não está ativa." }, 403)
+    }
+    if (!user.emailVerification) {
+      return res.json(
+        { error: "Confirma o teu e-mail antes de publicares uma nota." },
+        403
+      )
+    }
+
+    if (!(await isActiveMember(tablesDB, memberId))) {
+      return res.json(
+        { error: "Esta pessoa já não está disponível para classificação." },
+        409
+      )
+    }
+
     const grade = req.bodyJson?.grade
     const rawComment = req.bodyJson?.comment
-    const comment = typeof rawComment === "string" ? rawComment.trim() : ""
+    if (rawComment != null && typeof rawComment !== "string") {
+      return res.json({ error: "Comentário inválido." }, 400)
+    }
+    const comment =
+      typeof rawComment === "string" ? normalizeComment(rawComment) : ""
     if (
       typeof grade !== "number" ||
       !Number.isFinite(grade) ||
@@ -143,11 +225,20 @@ export default async ({ req, res, error }) => {
     ) {
       return res.json({ error: "A nota deve estar entre 0 e 20." }, 400)
     }
-    if (comment.length > MAX_COMMENT_LENGTH) {
-      return res.json(
-        { error: "O comentário não pode exceder 1000 caracteres." },
-        400
-      )
+    const commentError = getCommentValidationError(comment)
+    if (commentError) {
+      return res.json({ error: commentError }, 400)
+    }
+
+    const now = Date.now()
+    const recentSubmissionDates = await listRecentSubmissionDates(
+      tablesDB,
+      userId,
+      now
+    )
+    const rateLimit = getRateLimit(recentSubmissionDates, now)
+    if (rateLimit) {
+      return res.json(rateLimit, 429)
     }
 
     const currentGrade = await createGrade({
@@ -156,11 +247,25 @@ export default async ({ req, res, error }) => {
       memberId,
       grade,
       comment,
+      now,
     })
     return res.json({ hasGrade: true, grade: currentGrade }, 201)
   } catch (cause) {
     if (cause instanceof AppwriteException && cause.code === 409) {
-      return res.json({ error: "Já classificaste este membro." }, 409)
+      const currentGrade = tablesDB
+        ? await findCurrentGrade(tablesDB, userId, memberId).catch(
+            () => undefined
+          )
+        : undefined
+      return currentGrade
+        ? res.json({ error: "Já classificaste este membro." }, 409)
+        : res.json(
+            {
+              error: "Aguarda alguns segundos antes de enviares outra nota.",
+              retryAfterSeconds: 30,
+            },
+            429
+          )
     }
     if (
       cause instanceof AppwriteException &&
