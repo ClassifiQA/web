@@ -410,6 +410,7 @@ const SignUpForm = ({
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       password: String(data.get("password") ?? ""),
+      termsAccepted: data.get("terms") === "on",
     })
 
     setSubmitting(false)

@@ -179,13 +179,18 @@ export const useClientAuth = () => {
     email,
     password,
     name,
+    termsAccepted,
   }: {
     email: string
     password: string
     name: string
+    termsAccepted: boolean
   }) => {
     // validate input
     if (!email || !password || !name) return Error("all fields are required")
+    if (!termsAccepted) return Error("acceptance of the terms is required")
+
+    const termsAcceptedAt = new Date().toISOString()
 
     // attempt to sign up
     try {
@@ -211,7 +216,7 @@ export const useClientAuth = () => {
         prefs: mergePreferences(currentPreferences, {
           legal: {
             termsVersion: LEGAL_VERSION,
-            termsAcceptedAt: createdAccount.$createdAt,
+            termsAcceptedAt,
             privacyVersionAcknowledged: LEGAL_VERSION,
           },
         }),
