@@ -16,31 +16,34 @@ tested procedures and recorded assessments.
 
 ## Blocking before publication
 
-- [ ] Activate and monitor `legal@classifiqa.pt` and the work number
-      `[REDACTED]`, including the intended routing, and maintain a secure
-      procedure for responding to users, the CNPD, ANACOM, courts and other
+- [x] Activate and monitor `legal@classifiqa.pt` and the work number
+      `[REDACTED]`. Confirmed by the operator on 28 July 2026.
+- [ ] Document the secure triage, identity-verification, access and response
+      procedure for requests from users, the CNPD, ANACOM, courts and other
       competent authorities.
 - [ ] Have Portuguese counsel validate the independent-worker disclosures,
       minor-user flow, consumer-law status and the legal basis for processing party
       affiliation and public-official data.
-- [ ] Resolve the controller identification still omitted from the public copy.
-      An email address and work number are now published, but Article 13(1)(a) GDPR
-      requires the identity and contact details of the controller, and Article 10
-      of Decree-Law 7/2004 can require the service provider's name and geographic
-      address. Counsel should confirm a compliant, privacy-preserving approach
-      before launch.
-- [ ] Deploy and verify the implemented `account-erasure` Function. Confirm with a
-      disposable account that it removes the account, profile, ratings, comments
-      and ownership metadata, anonymises retained reports and lets weekly backups
-      age out through their documented two-version rotation.
+- [x] Publish the controller identity and direct contact details. `Daniel Querido`,
+      `legal@classifiqa.pt` and `[REDACTED]` are identified in the Terms and
+      Privacy Policy. Confirmed by the operator on 28 July 2026.
+- [x] Deploy and verify the implemented `account-erasure` Function. A disposable
+      verified account was tested in production on 28 July 2026: its account,
+      rating, comment and ownership row were removed, while its retained report
+      was anonymised.
+- [ ] Verify that deleted account data ages out of weekly backups through the
+      documented two-version rotation, and retain evidence of the test.
 - [ ] Configure and verify the stated retention controls: technical and security
       logs up to 12 months, final moderation records for 6 months and closed support
       or privacy correspondence for up to 24 months, subject to documented legal
       exceptions.
-- [ ] Deploy and verify the implemented structured illegal-content notice flow.
-      Confirm that it collects the four elements listed in section 10 of the
-      Terms, returns an acknowledgement reference and preserves a reasoned
-      moderation/appeal record. Test the monitored email fallback separately.
+- [x] Deploy and verify the structured illegal-content notice intake. A
+      disposable verified account submitted a production notice on 28 July 2026;
+      the Function returned an acknowledgement reference, kept the row private,
+      rate-limited an immediate repeat and anonymised the retained notice when
+      the account was deleted.
+- [ ] Test the complete human moderation and appeal procedure, including a
+      reasoned decision record and the monitored email fallback.
 - [ ] Accept and archive Article 28 GDPR data-processing agreements with Hostinger
       and Cloudflare. Record where their support staff and subprocessors can access
       data, and document the transfer assessment for Cloudflare's global network and
@@ -62,10 +65,12 @@ tested procedures and recorded assessments.
       processing.
 - [ ] Maintain a record of processing activities, access-control review,
       data-subject request procedure and personal-data breach procedure.
-- [ ] Deploy and verify the `grade-ownership` active-member guard. Confirm that one
-      active rating per account and current office-holder is enforced, ratings
-      remain anonymous and aggregate-only, historical office-holders are
-      distinguished and direct Function calls cannot rate historical records.
+- [x] Deploy and verify the `grade-ownership` active-member guard. A direct
+      authenticated production Function call against a disposable inactive
+      office-holder returned HTTP 409 on 28 July 2026, and no rating was created.
+- [x] Complete the wider rating privacy verification: confirm one rating per
+      account and active office-holder, anonymous public presentation and
+      aggregate-only identity handling throughout production.
 
 ## Before enabling planned services
 
