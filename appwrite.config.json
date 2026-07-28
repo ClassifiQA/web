@@ -283,12 +283,11 @@
         },
         {
           "key": "content_type",
-          "type": "varchar",
+          "type": "enum",
           "required": true,
           "array": false,
-          "size": 16,
-          "default": null,
-          "encrypt": false
+          "elements": ["comment", "member", "account", "other"],
+          "default": null
         },
         {
           "key": "content_url",
@@ -333,12 +332,18 @@
         },
         {
           "key": "status",
-          "type": "varchar",
+          "type": "enum",
           "required": true,
           "array": false,
-          "size": 16,
-          "default": null,
-          "encrypt": false
+          "elements": [
+            "received",
+            "reviewing",
+            "actioned",
+            "rejected",
+            "appealed",
+            "closed"
+          ],
+          "default": null
         },
         {
           "key": "decision",
