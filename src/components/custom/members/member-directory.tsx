@@ -17,11 +17,13 @@ import {
   type MemberSource,
 } from "@/lib/data/members"
 import { ArrowUpRight, Search } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
+import { useMobile } from "@/lib/hooks/mobile"
 
 type SourceFilter = "all" | MemberSource
 
-const PAGE_SIZE = 9
+const MOBILE_PAGE_SIZE = 6
+const DEFAULT_PAGE_SIZE = 9
 
 const normalized = (value: string) =>
   value
@@ -34,9 +36,12 @@ type MemberDirectoryProps = {
 }
 
 export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
+  const isMobile = useMobile()
   const [search, setSearch] = useState("")
   const [source, setSource] = useState<SourceFilter>("all")
   const [page, setPage] = useState(1)
+  const memberListRef = useRef<HTMLDivElement>(null)
+  const pageSize = isMobile ? MOBILE_PAGE_SIZE : DEFAULT_PAGE_SIZE
 
   const filteredMembers = useMemo(() => {
     const term = normalized(search.trim())
@@ -53,11 +58,11 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
     })
   }, [members, search, source])
 
-  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / PAGE_SIZE))
+  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / pageSize))
   const currentPage = Math.min(page, totalPages)
   const visibleMembers = filteredMembers.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
   )
   const governmentCount = members.filter(
     (member) => member.source === "governo-portugal"
@@ -66,17 +71,15 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
     (member) => member.source === "parlamento-ar"
   ).length
   const paginationItems = useMemo(() => {
-    if (totalPages <= 7) {
+    if (!isMobile && totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, index) => index + 1)
     }
 
-    const pages = new Set([
-      1,
-      totalPages,
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-    ])
+    const pages = new Set(
+      isMobile
+        ? [currentPage - 1, currentPage, currentPage + 1]
+        : [1, totalPages, currentPage - 1, currentPage, currentPage + 1]
+    )
     const visiblePages = [...pages]
       .filter((item) => item >= 1 && item <= totalPages)
       .sort((left, right) => left - right)
@@ -89,15 +92,21 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
     })
 
     return items
-  }, [currentPage, totalPages])
+  }, [currentPage, isMobile, totalPages])
 
   const goToPage = (nextPage: number) => {
     setPage(Math.min(Math.max(nextPage, 1), totalPages))
+    memberListRef.current?.scrollTo({ top: 0 })
+  }
+
+  const resetPage = () => {
+    setPage(1)
+    memberListRef.current?.scrollTo({ top: 0 })
   }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="mb-3 grid shrink-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+      <div className="mb-3 grid shrink-0 gap-3 md:grid-cols-[minmax(0,1fr)_auto]">
         <label className="relative block">
           <span className="sr-only">Pesquisar por nome, cargo ou partido</span>
           <Search
@@ -109,7 +118,7 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
             value={search}
             onChange={(event) => {
               setSearch(event.target.value)
-              setPage(1)
+              resetPage()
             }}
             placeholder="Pesquisar por nome, cargo ou partido…"
             className="h-10 w-full rounded-full border bg-background pr-4 pl-10 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
@@ -117,7 +126,7 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
         </label>
 
         <div
-          className="flex gap-1 rounded-full bg-muted p-1"
+          className="grid grid-cols-3 gap-1 rounded-full bg-muted p-1"
           aria-label="Filtrar por instituição">
           {(
             [
@@ -132,9 +141,9 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
               aria-pressed={source === value}
               onClick={() => {
                 setSource(value)
-                setPage(1)
+                resetPage()
               }}
-              className="rounded-full px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-colors aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm">
+              className="min-w-0 rounded-full px-2 py-2 text-xs font-semibold text-muted-foreground transition-colors aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm sm:px-3 sm:py-1.5">
               {label}
             </button>
           ))}
@@ -149,23 +158,25 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
 
       {visibleMembers.length ? (
         <>
-          <div className="min-h-0 flex-1 overflow-hidden">
-            <ul className="grid h-full grid-cols-3 grid-rows-3 gap-2">
+          <div
+            ref={memberListRef}
+            className="-mr-1 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 lg:overflow-hidden">
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:h-full lg:grid-cols-3 lg:grid-rows-3">
               {visibleMembers.map((member) => (
                 <li key={member.$id}>
                   <Button
                     href={memberHref(member.$id)}
                     variant="outline"
-                    className="group grid h-full min-h-0 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-2 rounded-2xl border bg-card p-2 text-left whitespace-normal transition-colors hover:border-accent/40 hover:bg-muted/40 sm:gap-3 sm:p-2.5">
+                    className="group grid min-h-18 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-3 rounded-2xl border bg-card p-2.5 text-left whitespace-normal transition-colors hover:border-accent/40 hover:bg-muted/40 lg:h-full lg:min-h-0">
                     <MemberAvatar
                       member={member}
-                      className="hidden size-10 sm:flex lg:size-12"
+                      className="size-11 lg:size-12"
                     />
                     <div className="min-w-0">
-                      <h2 className="truncate text-xs font-bold sm:text-sm">
+                      <h2 className="truncate text-sm font-bold">
                         {member.name}
                       </h2>
-                      <p className="mt-0.5 hidden truncate text-[0.6875rem] text-muted-foreground sm:block">
+                      <p className="mt-0.5 truncate text-[0.6875rem] text-muted-foreground">
                         {member.position}
                       </p>
                       <p className="mt-1 truncate text-[0.6875rem] font-semibold text-accent">
@@ -181,7 +192,7 @@ export const MemberDirectory = ({ members }: MemberDirectoryProps) => {
                     </div>
                     <ArrowUpRight
                       aria-hidden="true"
-                      className="hidden size-4 shrink-0 text-muted-foreground group-hover:text-accent lg:block"
+                      className="size-4 shrink-0 text-muted-foreground group-hover:text-accent"
                     />
                   </Button>
                 </li>

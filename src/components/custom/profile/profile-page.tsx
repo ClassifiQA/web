@@ -23,7 +23,6 @@ import {
   useId,
   useRef,
   useState,
-  useSyncExternalStore,
 } from "react"
 import { AuthenticationFactor, type Models } from "appwrite"
 
@@ -48,6 +47,7 @@ import {
   useAuthStore,
 } from "@/lib/store/auth"
 import { cn } from "@/lib/utils"
+import { useMediaQuery } from "@/lib/hooks/mobile"
 
 type PanelId = "profile" | "security" | "notifications"
 
@@ -82,18 +82,6 @@ const panelNavigation: {
   { id: "security", label: "Segurança", icon: LockKeyhole },
   { id: "notifications", label: "Notificações", icon: Bell },
 ]
-
-// keep tab semantics aligned with the responsive navigation
-const subscribeToDesktopLayout = (onChange: () => void) => {
-  const media = window.matchMedia("(min-width: 64rem)")
-  media.addEventListener("change", onChange)
-
-  return () => media.removeEventListener("change", onChange)
-}
-
-const getDesktopLayout = () => {
-  return window.matchMedia("(min-width: 64rem)").matches
-}
 
 // map an Appwrite user to the editable form
 const getProfileForm = (user: AuthUser): ProfileForm => {
@@ -230,7 +218,7 @@ const PreferenceToggle = ({
 
   // ui
   return (
-    <div className="flex items-center justify-between gap-6 py-3.5">
+    <div className="flex items-start justify-between gap-4 py-3.5 sm:items-center sm:gap-6">
       <div>
         <p className="text-sm font-semibold text-foreground">{label}</p>
         <p id={descriptionId} className="mt-0.5 text-sm text-muted-foreground">
@@ -341,11 +329,7 @@ export const ProfilePage = () => {
   ).some(
     (preference) => notifications[preference] !== savedNotifications[preference]
   )
-  const isDesktopLayout = useSyncExternalStore(
-    subscribeToDesktopLayout,
-    getDesktopLayout,
-    () => false
-  )
+  const isDesktopLayout = useMediaQuery("(min-width: 64rem)")
 
   // clear pending feedback
   useEffect(() => {
@@ -784,14 +768,16 @@ export const ProfilePage = () => {
   // ui
   return (
     <div className="min-h-0 w-full flex-1 overflow-y-auto text-foreground">
-      <div className="mx-auto flex min-h-full max-w-7xl flex-col px-5 py-4 sm:px-8">
+      <div className="mx-auto flex min-h-full max-w-7xl flex-col px-4 py-4 sm:px-8">
         {/* title & feedback */}
-        <div className="mb-5 flex shrink-0 items-end justify-between gap-6">
+        <div className="mb-4 flex shrink-0 items-end justify-between gap-6 sm:mb-5">
           <div>
             <p className="mb-1 text-xs font-semibold tracking-wide text-accent">
               A MINHA CONTA
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight">Perfil</h1>
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Perfil
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Gere os teus dados pessoais e preferências da conta.
             </p>
@@ -836,12 +822,12 @@ export const ProfilePage = () => {
           </div>
         ) : null}
 
-        <div className="grid flex-1 items-start gap-6 lg:grid-cols-[240px_1fr]">
+        <div className="grid flex-1 items-start gap-4 sm:gap-6 lg:grid-cols-[240px_1fr]">
           {/* navigation */}
           <aside>
             <nav
               role="tablist"
-              className="grid gap-1 sm:grid-cols-3 lg:grid-cols-1"
+              className="grid grid-cols-3 gap-1 lg:grid-cols-1"
               aria-label="Definições da conta"
               aria-orientation={isDesktopLayout ? "vertical" : "horizontal"}>
               {panelNavigation.map(({ id, label, icon: Icon }) => {
@@ -858,13 +844,13 @@ export const ProfilePage = () => {
                     onClick={() => activatePanel(id)}
                     onKeyDown={(event) => changeTabWithKeyboard(event, id)}
                     className={cn(
-                      "flex h-12 items-center gap-3 rounded-lg px-3.5 text-left text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30",
+                      "flex min-w-0 flex-col items-center gap-1 rounded-lg px-1 py-2 text-center text-xs transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 sm:h-12 sm:flex-row sm:gap-3 sm:px-3.5 sm:py-0 sm:text-left sm:text-sm lg:w-full",
                       isActive
                         ? "bg-accent/10 font-semibold text-accent"
                         : "font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
                     )}>
                     <Icon className="size-5 shrink-0" strokeWidth={1.8} />
-                    {label}
+                    <span className="truncate">{label}</span>
                   </button>
                 )
               })}
@@ -1108,7 +1094,7 @@ const PersonalPanel = ({
       aria-labelledby="profile-tab-profile"
       className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
       {/* header */}
-      <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
+      <div className="flex items-start justify-between gap-3 border-b border-border px-4 py-4 sm:items-center sm:gap-4 sm:px-6">
         <div>
           <h2 className="text-xl font-semibold">Dados pessoais</h2>
           <p className="mt-0.5 text-sm text-muted-foreground">
@@ -1118,9 +1104,11 @@ const PersonalPanel = ({
         {!editing ? (
           <ProfileButton
             variant="secondary"
+            className="px-3"
             onClick={() => onEditingChange(true)}>
             <Pencil className="size-4" aria-hidden />
-            Editar perfil
+            <span className="hidden min-[390px]:inline">Editar perfil</span>
+            <span className="min-[390px]:hidden">Editar</span>
           </ProfileButton>
         ) : null}
       </div>
@@ -1144,9 +1132,9 @@ const PersonalPanel = ({
 
       {/* profile form */}
       <form onSubmit={onSave}>
-        <div className="px-5 py-5 sm:px-6">
+        <div className="px-4 py-5 sm:px-6">
           {/* avatar */}
-          <div className="mb-5 flex items-center gap-4">
+          <div className="mb-5 flex items-start gap-3 sm:items-center sm:gap-4">
             <div className="grid size-16 shrink-0 place-items-center rounded-full bg-accent/10 text-xl font-bold text-accent">
               {getInitials(form.name)}
             </div>
@@ -1218,7 +1206,7 @@ const PersonalPanel = ({
 
         {editing ? (
           /* form actions */
-          <div className="flex items-center justify-end gap-3 border-t border-border bg-muted/50 px-5 py-3 sm:px-6">
+          <div className="grid grid-cols-2 gap-3 border-t border-border bg-muted/50 px-4 py-3 sm:flex sm:items-center sm:justify-end sm:px-6">
             <ProfileButton
               variant="secondary"
               disabled={isSaving}
@@ -1233,7 +1221,7 @@ const PersonalPanel = ({
       </form>
 
       {/* danger zone */}
-      <div className="flex flex-col gap-4 border-t border-destructive/20 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
+      <div className="flex flex-col gap-4 border-t border-destructive/20 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
         <div className="flex items-start gap-3">
           <CircleAlert className="mt-0.5 size-4 text-destructive" aria-hidden />
           <div>
@@ -1245,7 +1233,7 @@ const PersonalPanel = ({
         </div>
         <ProfileButton
           variant="danger"
-          className="shrink-0"
+          className="w-full shrink-0 sm:w-auto"
           onClick={onDeactivate}>
           Desativar conta
         </ProfileButton>

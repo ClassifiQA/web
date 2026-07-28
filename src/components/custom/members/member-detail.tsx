@@ -193,9 +193,9 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
   // ui
   return (
     <TooltipProvider>
-      <article className="grid overflow-hidden rounded-4xl border bg-card shadow-sm lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <section className="p-6 sm:p-8 lg:p-10">
-          <div className="grid gap-6 sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-1">
+      <article className="grid overflow-hidden rounded-2xl border bg-card shadow-sm sm:rounded-4xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <section className="p-4 sm:p-8 lg:p-10">
+          <div className="grid justify-items-center gap-4 text-center sm:grid-cols-[auto_minmax(0,1fr)] sm:justify-items-start sm:gap-6 sm:text-left lg:grid-cols-1">
             <MemberAvatar
               member={member}
               className="size-28 text-2xl sm:size-36 lg:size-40"
@@ -206,14 +206,14 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
               <p className="text-sm font-semibold text-accent">
                 {memberSourceLabel(member.source)}
               </p>
-              <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
+              <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-4xl">
                 {member.name}
               </h1>
               <p className="mt-3 max-w-2xl text-muted-foreground">
                 {member.position}
               </p>
               {member.party ? (
-                <div className="mt-3 flex flex-row items-center gap-2 py-1 text-sm">
+                <div className="mt-3 flex flex-row items-center justify-center gap-2 py-1 text-sm sm:justify-start">
                   <p className="font-semibold">Partido:</p>
                   <MemberParty
                     abbreviation={member.party}
@@ -224,7 +224,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             <Button
               variant="outline"
               href="/classificacoes"
@@ -242,8 +242,8 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
 
           <section
             aria-labelledby="grading"
-            className="mt-8 rounded-4xl border bg-muted/30 p-5 sm:p-6">
-            <div className="flex items-center justify-between gap-5">
+            className="mt-6 rounded-2xl border bg-muted/30 p-4 sm:mt-8 sm:rounded-4xl sm:p-6">
+            <div className="flex items-center justify-between gap-3 sm:gap-5">
               <div>
                 <p className="text-sm text-muted-foreground">Nota Média</p>
                 <h2 id="grading" className="mt-1 text-xl font-semibold">
@@ -265,7 +265,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
           </section>
         </section>
 
-        <aside className="border-t bg-muted/20 p-6 sm:p-8 lg:border-t-0 lg:border-l lg:p-10">
+        <aside className="border-t bg-muted/20 p-4 sm:p-8 lg:border-t-0 lg:border-l lg:p-10">
           <MemberGradeActivity grades={allGrades} />
         </aside>
       </article>

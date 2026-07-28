@@ -2,13 +2,14 @@
 import { AuthControl } from "@/components/custom/auth/auth-control"
 import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
+import { ListFilter } from "lucide-react"
 
 const isProfilePage =
   Astro.url.pathname === "/perfil" || Astro.url.pathname.startsWith("/perfil/")
 ---
 
 <header
-  class="flex shrink-0 flex-row items-center justify-between gap-3 p-4 sm:p-6">
+  class="flex shrink-0 flex-row items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:p-6">
   {/* title */}
   <a href="/" class="text-2xl" aria-label="Ir para a página inicial">
     Classifi<span class="text-accent">QA</span>
@@ -22,6 +23,16 @@ const isProfilePage =
       variant="ghost"
       className="hidden text-sm font-semibold text-muted-foreground sm:inline-flex">
       Classificações
+    </Button>
+    <Button
+      client:load
+      href="/classificacoes"
+      variant="ghost"
+      size="icon"
+      className="sm:hidden"
+      aria-label="Classificações"
+      title="Classificações">
+      <ListFilter />
     </Button>
 
     {/* menu */}
