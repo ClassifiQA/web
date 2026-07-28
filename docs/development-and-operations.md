@@ -65,6 +65,7 @@ Official-source parser check:
 
 ```bash
 cd functions/sync-members
+bun test
 bun run check
 ```
 

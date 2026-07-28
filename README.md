@@ -109,7 +109,7 @@ Function-specific checks:
 ```bash
 cd functions/grade-ownership && bun test
 cd functions/content-reports && bun test
-cd functions/sync-members && bun run check
+cd functions/sync-members && bun test && bun run check
 ```
 
 ## Documentation
