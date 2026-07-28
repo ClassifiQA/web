@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { memberSourceLabel, type Member } from "@/lib/data/members"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import { MemberGrade } from "./grade"
-import { median } from "es-toolkit/math"
+import { mean } from "es-toolkit/math"
 import { TooltipProvider } from "radix-ui/tooltip"
 import { useEffect, useState } from "react"
 import { useClientAuth } from "@/lib/hooks/backend/client/services/auth"
@@ -149,8 +149,8 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
   // grades
   const allGrades =
     liveGrades.memberId === memberId ? liveGrades.grades : member.grades
-  const medianGrade = allGrades.length
-    ? median(allGrades.map((grade) => grade.grade))
+  const averageGrade = allGrades.length
+    ? Math.round(mean(allGrades.map((grade) => grade.grade)) * 10) / 10
     : 0
   const activeMyGradeLookup =
     myGradeLookup?.key === myGradeLookupKey ? myGradeLookup : null
@@ -255,7 +255,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
                   <span className="text-accent">{gradeCountLabel}</span>
                 </h2>
               </div>
-              <MemberGrade grade={medianGrade} radius={35} />
+              <MemberGrade grade={averageGrade} radius={35} />
             </div>
             <Button
               className="mt-5 w-full"
