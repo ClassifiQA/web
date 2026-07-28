@@ -3,6 +3,7 @@ export const LEGAL_VERSION = "2026-07-28"
 
 export const legalDetails = {
   updatedAt: "28 de julho de 2026",
+  controllerName: "Daniel Querido",
   legalEmail: "legal@classifiqa.pt",
   workPhone: "[REDACTED]",
   workPhoneHref: "tel:[REDACTED]",

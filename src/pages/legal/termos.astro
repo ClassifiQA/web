@@ -52,9 +52,11 @@ import MainLayout from "@/layouts/main.astro"
       <h2 id="contacto-title">1. Identificação e contacto do responsável</h2>
       <p>
         O sítio <strong>classifiqa.pt</strong> e o serviço ClassifiQA («ClassifiQA»,
-        «Plataforma» ou «Serviço») são disponibilizados por um operador individual
-        estabelecido em Portugal. O nome «ClassifiQA» identifica o projeto e não uma
-        sociedade comercial ou outra pessoa coletiva.
+        «Plataforma» ou «Serviço») são disponibilizados por <strong
+          >{legalDetails.controllerName}</strong
+        >, operador individual estabelecido em Portugal. O nome «ClassifiQA»
+        identifica o projeto e não uma sociedade comercial ou outra pessoa
+        coletiva.
       </p>
       <p>
         Para comunicações jurídicas, administrativas, contratuais ou
@@ -67,11 +69,6 @@ import MainLayout from "@/layouts/main.astro"
         <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a>. O
         endereço de e-mail constitui o ponto de contacto eletrónico permanente
         do ClassifiQA.
-      </p>
-      <p>
-        Os elementos de identificação legal não publicados serão comunicados
-        diretamente às autoridades competentes quando sejam objeto de um pedido
-        válido e juridicamente vinculativo.
       </p>
       <p>
         O projeto é gerido a partir de Portugal. O alojamento técnico num

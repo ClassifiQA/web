@@ -45,9 +45,11 @@ import MainLayout from "@/layouts/main.astro"
     <section id="responsavel" aria-labelledby="responsavel-title">
       <h2 id="responsavel-title">1. Responsável pelo tratamento</h2>
       <p>
-        O responsável pelo tratamento é o operador individual do ClassifiQA,
-        estabelecido em Portugal. O ClassifiQA é a designação do projeto e não
-        corresponde a uma sociedade comercial ou a outra pessoa coletiva.
+        O responsável pelo tratamento é <strong
+          >{legalDetails.controllerName}</strong
+        >, operador individual do ClassifiQA estabelecido em Portugal. O
+        ClassifiQA é a designação do projeto e não corresponde a uma sociedade
+        comercial ou a outra pessoa coletiva.
       </p>
       <p>
         Para efeitos do artigo 13.º do RGPD, comunicações relativas ao
@@ -60,11 +62,6 @@ import MainLayout from "@/layouts/main.astro"
         <a href={legalDetails.workPhoneHref}>{legalDetails.workPhone}</a>. O
         endereço de e-mail constitui o canal eletrónico permanente para matérias
         de privacidade e proteção de dados.
-      </p>
-      <p>
-        Os elementos de identificação legal não publicados serão comunicados
-        diretamente às autoridades competentes quando sejam objeto de um pedido
-        válido e juridicamente vinculativo.
       </p>
     </section>
 
