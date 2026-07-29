@@ -3,17 +3,24 @@ import { AuthControl } from "@/components/custom/auth/auth-control"
 import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
 import { ListFilter } from "lucide-react"
+import { Image } from "astro:assets"
+import logo from "@/assets/img/logo.svg"
 
 const isProfilePage =
   Astro.url.pathname === "/perfil" || Astro.url.pathname.startsWith("/perfil/")
 ---
 
 <header
-  class="flex shrink-0 flex-row items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:p-6">
+  class="flex shrink-0 flex-row items-center justify-between gap-2 py-3 sm:gap-3 sm:p-6">
   {/* title */}
-  <a href="/" class="text-2xl" aria-label="Ir para a página inicial">
-    Classifi<span class="text-accent">QA</span>
-  </a>
+  <Button
+    variant="link"
+    href="/"
+    aria-label="ClassifiQA"
+    className="-px-6"
+    client:load>
+    <Image src={logo} alt="ClassifiQA" height={50} />
+  </Button>
 
   {/* nav */}
   <div class="flex flex-row items-center gap-2">
