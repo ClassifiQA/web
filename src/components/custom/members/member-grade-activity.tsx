@@ -35,8 +35,10 @@ export const MemberGradeActivity = ({
 
   if (comments.length > 0) {
     return (
-      <section aria-labelledby="member-comments" className="grid gap-5">
-        <header>
+      <section
+        aria-labelledby="member-comments"
+        className="flex h-full min-h-0 flex-col gap-3 sm:gap-5">
+        <header className="shrink-0">
           <div className="flex items-center gap-2">
             <MessageCircle aria-hidden className="size-5 text-accent" />
             <h2 id="member-comments" className="text-xl font-semibold">
@@ -48,7 +50,7 @@ export const MemberGradeActivity = ({
           </p>
         </header>
 
-        <div className="grid gap-3">
+        <div className="grid min-h-0 flex-1 [scrollbar-gutter:stable] content-start gap-3 overflow-y-auto overscroll-contain pr-1">
           {comments.map((grade) => (
             <article
               key={grade.$id}
