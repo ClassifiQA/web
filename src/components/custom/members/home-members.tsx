@@ -12,14 +12,14 @@ type HomeMembersProps = {
 export const HomeMembers = ({ members, error }: HomeMembersProps) => {
   return (
     <div className="mx-auto w-full max-w-3xl">
-      <div className="mb-3 flex items-end justify-between gap-3 lg:mb-4">
+      <div className="mb-4 flex flex-col items-start gap-2 lg:mb-4 lg:flex-row lg:items-end lg:justify-between lg:gap-3">
         <div>
           <h2
             id="classificacoes-title"
-            className="text-lg font-bold tracking-tight lg:text-2xl">
+            className="text-xl font-bold tracking-tight lg:text-2xl">
             Quem podes avaliar agora
           </h2>
-          <p className="mt-0.5 text-xs text-muted-foreground lg:text-base">
+          <p className="mt-1 max-w-md text-sm leading-snug text-muted-foreground lg:text-base">
             Membros em funções, atualizados a partir de fontes oficiais.
           </p>
         </div>
@@ -27,13 +27,12 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
         {!error ? (
           <div
             role="status"
-            className="flex shrink-0 items-center gap-1.5 pb-0.5 text-xs font-semibold text-muted-foreground sm:gap-2 sm:text-sm">
+            className="flex shrink-0 items-center gap-1.5 rounded-full bg-background/80 px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:gap-2 sm:text-sm lg:bg-transparent lg:px-0 lg:py-0">
             <span
               aria-hidden="true"
               className="size-2 animate-pulse rounded-full bg-emerald-500 sm:size-2.5"
             />
-            <span className="hidden sm:inline">Dados atualizados</span>
-            <span className="sm:hidden">Atualizado</span>
+            <span>Dados atualizados</span>
           </div>
         ) : null}
       </div>
@@ -52,24 +51,24 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
           </Button>
         </div>
       ) : (
-        <ol className="space-y-2 lg:space-y-3">
+        <ol className="space-y-3">
           {members.map((member) => (
             <li key={member.$id}>
               <Button
                 href={memberHref(member.$id)}
                 variant="ghost"
-                className="group grid min-h-15 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-3 rounded-xl border bg-card px-3 py-2 text-left whitespace-normal transition-colors hover:border-accent/40 hover:bg-muted/50 lg:min-h-18 lg:rounded-2xl lg:px-5 lg:py-3">
+                className="group grid min-h-[4.5rem] w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-3 rounded-2xl border bg-card px-4 py-3 text-left whitespace-normal shadow-sm transition-colors hover:border-accent/40 hover:bg-muted/50 lg:min-h-18 lg:px-5">
                 <MemberAvatar
                   member={member}
-                  className="size-10 lg:size-12"
+                  className="size-11 lg:size-12"
                   eager
                 />
 
                 <div className="min-w-0">
-                  <h3 className="truncate text-sm font-bold sm:text-lg">
+                  <h3 className="truncate text-base font-bold sm:text-lg">
                     {member.name}
                   </h3>
-                  <p className="truncate text-[0.6875rem] text-muted-foreground sm:text-sm">
+                  <p className="mt-0.5 truncate text-xs text-muted-foreground sm:text-sm">
                     {member.position}
                   </p>
                 </div>
@@ -101,7 +100,7 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
         href="/classificacoes"
         variant="link"
         trailingIcon={ArrowRight}
-        className="mt-3 h-auto justify-start p-0 text-xs font-semibold text-accent sm:text-sm lg:mt-4">
+        className="mt-4 h-auto justify-start p-0 text-sm font-semibold text-accent lg:mt-4">
         Ver todas as pessoas
       </Button>
     </div>

@@ -22,28 +22,35 @@ Astro.response.headers.set("Cache-Control", "private, no-store")
 
 <MainLayout title="ClassifiQA" className="h-dvh">
   <div
-    class="grid min-h-0 flex-1 gap-5 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6 lg:grid-cols-[minmax(20rem,0.85fr)_minmax(34rem,1.15fr)] lg:grid-rows-1 lg:gap-6 lg:overflow-hidden lg:py-4 xl:px-10 xl:py-6">
-    <section class="flex items-center justify-center lg:min-h-0">
+    class="grid min-h-0 flex-1 grid-rows-[auto_auto] gap-6 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 lg:grid-cols-[minmax(20rem,0.85fr)_minmax(34rem,1.15fr)] lg:grid-rows-1 lg:gap-6 lg:overflow-hidden lg:py-4 xl:px-10 xl:py-6">
+    <section
+      class="flex min-h-[19rem] items-center justify-center sm:min-h-0 lg:min-h-0">
       {/* one-liner & hook */}
-      <div class="flex flex-col items-center gap-2 text-center">
+      <div
+        class="flex w-full max-w-lg flex-col items-center rounded-3xl bg-muted/40 px-5 py-6 text-center sm:bg-transparent sm:px-0 sm:py-0">
         <Image
-          class="mb-2 h-24 w-auto sm:h-32 lg:mb-4 lg:h-[clamp(8rem,23vh,12rem)]"
+          class="mb-3 h-20 w-auto sm:h-32 lg:mb-4 lg:h-[clamp(8rem,23vh,12rem)]"
           src={ze_landing}
           height={200}
           alt="Zé Povinho"
         />
-        <h1 class="text-2xl sm:text-3xl lg:text-2xl">
+        <h1 class="text-[1.75rem] leading-tight sm:text-3xl lg:text-2xl">
           É a vez do <span class="text-accent">Zé</span> dar as notas
         </h1>
-        <p class="max-w-xl text-sm sm:text-base">
+        <p class="mt-2 max-w-xl text-sm leading-relaxed sm:text-base">
           Durante anos o Zé Povinho levou. Agora tem caneta <span
             class="text-red-600">vermelha</span
           > na mão.
         </p>
 
         {/* cta */}
-        <div class="mt-2 items-center gap-2 sm:mt-4">
-          <Button client:load href="/classificacoes">Dar a Minha Nota</Button>
+        <div class="mt-5 flex w-full items-center justify-center sm:mt-4">
+          <Button
+            client:load
+            href="/classificacoes"
+            className="w-full sm:w-auto">
+            Dar a Minha Nota
+          </Button>
         </div>
       </div>
     </section>
@@ -51,7 +58,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store")
     <section
       id="classificacoes"
       aria-labelledby="classificacoes-title"
-      class="flex h-fit min-h-0 flex-col self-center rounded-2xl border border-border bg-muted/30 p-3 sm:p-4 lg:rounded-3xl lg:p-6">
+      class="flex h-fit min-h-0 flex-col self-start rounded-3xl border border-border bg-muted/30 p-4 sm:p-5 lg:self-center lg:p-6">
       <HomeMembers members={members} error={membersError} client:idle />
     </section>
   </div>
