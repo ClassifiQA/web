@@ -34,7 +34,16 @@ jobs:
           if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
             git log -1 --format='%B' "$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
           else
-            git log --format='%B' "$BEFORE_SHA..$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
+            if ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+              git fetch --no-tags origin "$BEFORE_SHA" || true
+            fi
+
+            if git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+              git log --format='%B' "$BEFORE_SHA..$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
+            else
+              echo "::warning::The previous main revision is unavailable; using only the pushed head commit for version classification."
+              git log -1 --format='%B' "$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
+            fi
           fi
 
       - name: Test versioning rules
@@ -87,9 +96,37 @@ jobs:
 
           echo "Could not push the version after 5 attempts" >&2
           exit 1
+
+  deploy:
+    name: Deploy to Coolify
+    needs: bump-version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check that the release is still current
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ needs.bump-version.outputs.release_sha }}
+          RELEASE_VERSION: ${{ needs.bump-version.outputs.release_version }}
+        run: |
+          current_main_sha=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/commits/main" \
+            --jq '.sha')
+
+          if [[ "$current_main_sha" == "$RELEASE_SHA" ]]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping v${RELEASE_VERSION}; main has a newer commit that will be released by its queued workflow."
+          fi
+
       - name: Deploy to Coolify
+        if: steps.release.outputs.deploy == 'true'
         uses: ChristopheCVB/coolify-deploy-action@v3.1.0
         with:
           token: ${{ secrets.COOLIFY_TOKEN }}
-          domain: "https://backend.danfq.dev"
+          domain: backend.danfq.dev
           uuid: ${{ secrets.COOLIFY_UUID }}
