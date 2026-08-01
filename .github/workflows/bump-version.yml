@@ -1,4 +1,4 @@
-name: Bump semantic version
+name: Release and deploy
 
 on:
   push:
@@ -16,6 +16,9 @@ jobs:
   bump-version:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    outputs:
+      release_sha: ${{ steps.release.outputs.sha }}
+      release_version: ${{ steps.release.outputs.version }}
 
     steps:
       - name: Check out the pushed revision
@@ -38,11 +41,29 @@ jobs:
         run: node --test .github/scripts/bump-version.test.mjs
 
       - name: Bump and push the version
+        id: release
         env:
           COMMIT_MESSAGES: ${{ runner.temp }}/commit-messages.txt
+          SOURCE_SHA: ${{ github.sha }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin main
+          existing_release=$(git log origin/main \
+            --format='%H' \
+            --fixed-strings \
+            --grep="Release-Source: ${SOURCE_SHA}" \
+            -1)
+
+          if [[ -n "$existing_release" ]]; then
+            release_version=$(git show "${existing_release}:package.json" \
+              | node -e 'const fs = require("node:fs"); console.log(JSON.parse(fs.readFileSync(0, "utf8")).version)')
+            echo "Reusing existing release v${release_version} (${existing_release})"
+            echo "sha=${existing_release}" >> "$GITHUB_OUTPUT"
+            echo "version=${release_version}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           for attempt in 1 2 3 4 5; do
             git fetch origin main
@@ -51,10 +72,13 @@ jobs:
 
             next_version=$(node -p "require('./package.json').version")
             git add package.json
-            # Do not add a CI-skip marker: Coolify must deploy this release commit.
-            git commit -m "chore(release): v${next_version}"
+            git commit \
+              -m "chore(release): v${next_version}" \
+              -m "Release-Source: ${SOURCE_SHA}"
 
             if git push origin HEAD:main; then
+              echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+              echo "version=${next_version}" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
@@ -63,17 +87,66 @@ jobs:
 
           echo "Could not push the version after 5 attempts" >&2
           exit 1
+
+  deploy:
+    name: Deploy to Coolify
+    needs: bump-version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
       - name: Deploy versioned commit to Coolify
         env:
           COOLIFY_WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
           COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ needs.bump-version.outputs.release_sha }}
+          RELEASE_VERSION: ${{ needs.bump-version.outputs.release_version }}
         run: |
-          curl \
-            --fail-with-body \
+          if [[ -z "$COOLIFY_WEBHOOK" || -z "$COOLIFY_TOKEN" ]]; then
+            echo "COOLIFY_WEBHOOK and COOLIFY_TOKEN repository secrets are required" >&2
+            exit 1
+          fi
+
+          current_main_sha=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/commits/main" \
+            --jq '.sha')
+
+          if [[ "$current_main_sha" != "$RELEASE_SHA" ]]; then
+            echo "::notice::Skipping v${RELEASE_VERSION}; main has a newer commit that will be released by its queued workflow."
+            exit 0
+          fi
+
+          response_file="$RUNNER_TEMP/coolify-response.txt"
+          headers_file="$RUNNER_TEMP/coolify-headers.txt"
+
+          if ! http_status=$(curl \
             --silent \
             --show-error \
             --retry 3 \
-            --retry-all-errors \
+            --retry-delay 2 \
+            --retry-connrefused \
+            --connect-timeout 15 \
+            --max-time 60 \
             --request GET \
             "$COOLIFY_WEBHOOK" \
-            --header "Authorization: Bearer $COOLIFY_TOKEN"
+            --header "Authorization: Bearer $COOLIFY_TOKEN" \
+            --dump-header "$headers_file" \
+            --output "$response_file" \
+            --write-out '%{http_code}'); then
+            echo "Could not reach the Coolify deploy endpoint" >&2
+            exit 1
+          fi
+
+          if [[ ! "$http_status" =~ ^2 ]]; then
+            cf_ray=$(awk 'BEGIN { IGNORECASE=1 } /^cf-ray:/ { gsub("\\r", "", $2); ray=$2 } END { print ray }' "$headers_file")
+            if [[ -n "$cf_ray" ]]; then
+              echo "Coolify deployment was rejected with HTTP ${http_status} (Cloudflare Ray ID: ${cf_ray})" >&2
+            else
+              echo "Coolify deployment was rejected with HTTP ${http_status}" >&2
+            fi
+            exit 1
+          fi
+
+          echo "Coolify accepted deployment of v${RELEASE_VERSION} (${RELEASE_SHA})"
