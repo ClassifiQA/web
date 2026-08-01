@@ -1,6 +1,7 @@
 ---
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
+import { version } from "../../../../package.json"
 
 // copyright date & year
 const date = new Date()
@@ -31,6 +32,11 @@ const quickLinks: { text: string; href: string }[] = [
     <p class="items-center justify-center">
       &copy; {year}
       <span class="text-accent"> ClassifiQA</span>
+    </p>
+
+    {/* version */}
+    <p class="items-center justify-center px-0">
+      v{version}
     </p>
 
     {" | "}

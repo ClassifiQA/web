@@ -1,0 +1,64 @@
+name: Bump semantic version
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump-semantic-version-main
+  cancel-in-progress: false
+
+jobs:
+  bump-version:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the pushed revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine commits in this push
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
+            git log -1 --format='%B' "$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
+          else
+            git log --format='%B' "$BEFORE_SHA..$AFTER_SHA" > "$RUNNER_TEMP/commit-messages.txt"
+          fi
+
+      - name: Test versioning rules
+        run: node --test .github/scripts/bump-version.test.mjs
+
+      - name: Bump and push the version
+        env:
+          COMMIT_MESSAGES: ${{ runner.temp }}/commit-messages.txt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git checkout -B version-bump origin/main
+            node .github/scripts/bump-version.mjs "$COMMIT_MESSAGES"
+
+            next_version=$(node -p "require('./package.json').version")
+            git add package.json
+            git commit -m "chore(release): v${next_version} [skip ci]"
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "main changed while versioning; retrying (${attempt}/5)"
+          done
+
+          echo "Could not push the version after 5 attempts" >&2
+          exit 1
