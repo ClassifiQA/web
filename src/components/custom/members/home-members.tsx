@@ -1,10 +1,15 @@
 import { Badge } from "@/components/ui/badge"
 import { MemberAvatar } from "./member-avatar"
-import { MemberParty } from "./member-party"
 import { Button } from "@/components/ui/button"
-import { memberHref, memberSourceLabel, type Member } from "@/lib/data/members"
-import { isNumber, mean } from "es-toolkit"
-import { ArrowRight, ArrowUpRight, RotateCw } from "lucide-react"
+import { memberHref, type Member } from "@/lib/data/members"
+import { mean } from "es-toolkit"
+import { ArrowRight, ArrowUpRight, Info, RotateCw } from "lucide-react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 type HomeMembersProps = {
   members: Member[]
@@ -19,7 +24,7 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
           <h2
             id="classificacoes-title"
             className="text-xl font-bold tracking-tight lg:text-2xl">
-            Quem podes avaliar agora
+            Este é o Top 3 de Membros Classificados
           </h2>
           <p className="mt-1 max-w-md text-sm leading-snug text-muted-foreground lg:text-base">
             Membros em funções, atualizados a partir de fontes oficiais.
@@ -27,15 +32,30 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
         </div>
 
         {!error ? (
-          <div
-            role="status"
-            className="flex shrink-0 items-center gap-1.5 rounded-full bg-background/80 px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:gap-2 sm:text-sm lg:bg-transparent lg:px-0 lg:py-0">
-            <span
-              aria-hidden="true"
-              className="size-2 animate-pulse rounded-full bg-emerald-500 sm:size-2.5"
-            />
-            <span>Dados atualizados</span>
-          </div>
+          <TooltipProvider>
+            <div
+              role="status"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-background/80 px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:gap-2 sm:text-sm lg:bg-transparent lg:px-2 lg:py-0">
+              <span
+                aria-hidden="true"
+                className="size-2 animate-pulse rounded-full bg-emerald-500 sm:size-2.5"
+              />
+              <span>Dados Atualizados</span>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Horário da atualização"
+                    className="inline-flex size-5 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
+                    <Info className="size-3.5" aria-hidden="true" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" sideOffset={6}>
+                  Diariamente, às 04:00 (GMT+1)
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
         ) : null}
       </div>
 
@@ -59,7 +79,7 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
               <Button
                 href={memberHref(member.$id)}
                 variant="ghost"
-                className="group grid min-h-[4.5rem] w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-3 rounded-2xl border bg-card px-4 py-3 text-left whitespace-normal shadow-sm transition-colors hover:border-accent/40 hover:bg-muted/50 lg:min-h-18 lg:px-5">
+                className="group grid min-h-18 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center justify-stretch gap-3 rounded-2xl border bg-card px-4 py-3 text-left whitespace-normal shadow-sm transition-colors hover:border-accent/40 hover:bg-muted/50 lg:min-h-18 lg:px-5">
                 <MemberAvatar
                   member={member}
                   className="size-11 lg:size-12"
@@ -77,7 +97,7 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
 
                 <div className="flex items-center gap-3">
                   {/* current grade mean */}
-                  <Badge variant="secondary">
+                  <Badge variant="secondary" className="text-md">
                     {member.grades.length
                       ? `${
                           Math.round(

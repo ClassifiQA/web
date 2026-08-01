@@ -111,29 +111,43 @@ export const createServerMembers = () => {
   }
 
   const listFeaturedGovernmentMembers = async (limit = 3) => {
-    const result = await tablesDb.listRows<MemberRow>({
-      databaseId: CLASSIFIQA_DATABASE_ID,
-      tableId: MEMBERS_TABLE_ID,
-      queries: [
-        Query.equal("active", true),
-        Query.equal("source", "governo-portugal"),
-        Query.limit(30),
-        Query.select(MEMBER_SELECTION),
-      ],
-    })
-    const members = result.rows
-      .map(toMember)
-      .filter((member) => Boolean(member.image_url))
+    const members: Member[] = []
+    let cursor: string | undefined
 
-    for (let index = members.length - 1; index > 0; index -= 1) {
-      const swapIndex = Math.floor(Math.random() * (index + 1))
-      ;[members[index], members[swapIndex]] = [
-        members[swapIndex],
-        members[index],
-      ]
-    }
+    do {
+      const result = await tablesDb.listRows<MemberRow>({
+        databaseId: CLASSIFIQA_DATABASE_ID,
+        tableId: MEMBERS_TABLE_ID,
+        queries: [
+          Query.equal("active", true),
+          Query.equal("source", "governo-portugal"),
+          Query.orderAsc("$id"),
+          Query.limit(PAGE_SIZE),
+          Query.select(MEMBER_SELECTION),
+          ...(cursor ? [Query.cursorAfter(cursor)] : []),
+        ],
+      })
 
-    return members.slice(0, limit)
+      members.push(
+        ...result.rows
+          .map(toMember)
+          .filter((member) => member.image_url && member.grades.length > 0)
+      )
+      cursor =
+        result.rows.length === PAGE_SIZE ? result.rows.at(-1)?.$id : undefined
+    } while (cursor)
+
+    const meanGrade = (member: Member) =>
+      member.grades.reduce((total, { grade }) => total + grade, 0) /
+      member.grades.length
+
+    return members
+      .sort(
+        (first, second) =>
+          meanGrade(second) - meanGrade(first) ||
+          first.$id.localeCompare(second.$id)
+      )
+      .slice(0, limit)
   }
 
   return { getMember, listActiveMembers, listFeaturedGovernmentMembers }
