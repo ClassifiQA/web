@@ -202,7 +202,7 @@ export const MemberDetail = ({ member, error }: MemberDetailProps) => {
           <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 text-left sm:gap-6 lg:grid-cols-1 lg:justify-items-start">
             <MemberAvatar
               member={member}
-              className="size-20 text-lg sm:size-36 sm:text-2xl lg:size-40"
+              className="size-20 text-lg sm:size-36 sm:text-2xl lg:size-32"
               eager
             />
 
