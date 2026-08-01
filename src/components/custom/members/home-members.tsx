@@ -1,7 +1,9 @@
+import { Badge } from "@/components/ui/badge"
 import { MemberAvatar } from "./member-avatar"
 import { MemberParty } from "./member-party"
 import { Button } from "@/components/ui/button"
 import { memberHref, memberSourceLabel, type Member } from "@/lib/data/members"
+import { isNumber, mean } from "es-toolkit"
 import { ArrowRight, ArrowUpRight, RotateCw } from "lucide-react"
 
 type HomeMembersProps = {
@@ -74,16 +76,17 @@ export const HomeMembers = ({ members, error }: HomeMembersProps) => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="hidden rounded-full bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:inline">
-                    {member.party ? (
-                      <MemberParty
-                        abbreviation={member.party}
-                        name={member.party_name}
-                      />
-                    ) : (
-                      memberSourceLabel(member.source)
-                    )}
-                  </span>
+                  {/* current grade mean */}
+                  <Badge variant="secondary">
+                    {member.grades.length
+                      ? `${
+                          Math.round(
+                            mean(member.grades.map(({ grade }) => grade)) * 10
+                          ) / 10
+                        } / 20`
+                      : "Sem Classificações"}
+                  </Badge>
+
                   <ArrowUpRight
                     aria-hidden="true"
                     size={17}
