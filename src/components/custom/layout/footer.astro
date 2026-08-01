@@ -36,10 +36,17 @@ const quickLinks: { text: string; href: string }[] = [
     {" | "}
 
     {/* author */}
-    <p class="flex flex-row items-center gap-0.5">
+    <div class="flex flex-row items-center gap-0.5">
       Feito com <Heart className="text-accent" fill="var(--accent)" size={14} /> por
-      DanFQ
-    </p>
+      <Button
+        client:idle
+        variant="link"
+        size="xs"
+        className="px-0"
+        href="https://danfq.dev"
+        hrefTarget="_blank">DanFQ</Button
+      >
+    </div>
   </div>
 
   {/* quick links */}
