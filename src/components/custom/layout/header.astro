@@ -4,7 +4,7 @@ import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
 import { ListFilter } from "lucide-react"
 import { Image } from "astro:assets"
-import logo from "@/assets/img/logo.svg"
+import logo from "@/assets/img/logo_no_text.svg"
 
 const isProfilePage =
   Astro.url.pathname === "/perfil" || Astro.url.pathname.startsWith("/perfil/")
@@ -17,9 +17,10 @@ const isProfilePage =
     variant="link"
     href="/"
     aria-label="ClassifiQA"
-    className="-px-6"
+    className="-px-6 hover:no-underline"
     client:load>
-    <Image src={logo} alt="ClassifiQA" height={50} />
+    <Image src={logo} alt="ClassifiQA" height={45} />
+    <div class="text-2xl">Classifi<span class="text-accent">QA</span></div>
   </Button>
 
   {/* nav */}
