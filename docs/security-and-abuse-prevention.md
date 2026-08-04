@@ -117,8 +117,7 @@ When investigating suspected abuse:
    [legal pre-launch checklist](legal-launch-checklist.md).
 
 Security reports and privacy concerns can be sent to
-[legal@classifiqa.pt](mailto:legal@classifiqa.pt) or raised by phone at
-[[REDACTED]](tel:[REDACTED]).
+[legal@classifiqa.pt](mailto:legal@classifiqa.pt).
 
 ## Account erasure failure handling
 
