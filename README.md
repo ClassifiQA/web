@@ -123,8 +123,6 @@ cd functions/sync-members && bun test && bun run check
 ## Public contact
 
 - Legal and privacy: [legal@classifiqa.pt](mailto:legal@classifiqa.pt)
-- Work phone: [[REDACTED]](tel:[REDACTED])
-
 ## License
 
 See [LICENSE](LICENSE).
