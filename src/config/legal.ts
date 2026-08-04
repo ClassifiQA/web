@@ -5,8 +5,6 @@ export const legalDetails = {
   updatedAt: "28 de julho de 2026",
   controllerName: "Daniel Querido",
   legalEmail: "legal@classifiqa.pt",
-  workPhone: "[REDACTED]",
-  workPhoneHref: "tel:[REDACTED]",
   hostingProvider:
     "Hostinger International Limited, 61 Lordou Vironos Street, 6023 Larnaca, Chipre",
   backupDetails:
