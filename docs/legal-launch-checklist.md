@@ -16,17 +16,17 @@ tested procedures and recorded assessments.
 
 ## Blocking before publication
 
-- [x] Activate and monitor `legal@classifiqa.pt` and the work number
-      `[REDACTED]`. Confirmed by the operator on 28 July 2026.
+- [x] Activate and monitor `legal@classifiqa.pt`. Confirmed by the operator on
+      28 July 2026.
 - [ ] Document the secure triage, identity-verification, access and response
       procedure for requests from users, the CNPD, ANACOM, courts and other
       competent authorities.
 - [ ] Have Portuguese counsel validate the independent-worker disclosures,
       minor-user flow, consumer-law status and the legal basis for processing party
       affiliation and public-official data.
-- [x] Publish the controller identity and direct contact details. `Daniel Querido`,
-      `legal@classifiqa.pt` and `[REDACTED]` are identified in the Terms and
-      Privacy Policy. Confirmed by the operator on 28 July 2026.
+- [x] Publish the controller identity and direct contact details. `Daniel Querido`
+      and `legal@classifiqa.pt` are identified in the Terms and Privacy Policy.
+      Confirmed by the operator on 28 July 2026.
 - [x] Deploy and verify the implemented `account-erasure` Function. A disposable
       verified account was tested in production on 28 July 2026: its account,
       rating, comment and ownership row were removed, while its retained report
